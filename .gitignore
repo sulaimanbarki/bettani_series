@@ -5,6 +5,7 @@ yarn-error.log
 
 # Laravel 4 specific
 bootstrap/compiled.php
+bootstrap/cache/config.php
 app/storage/
 
 # Laravel 5 & Lumen specific
@@ -15,7 +16,10 @@ public/uploads
 public/images
 public/UI
 public/vendor
-public/
+public/result-card
+public/fonts
+public/js
+
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
 public_html/hot
