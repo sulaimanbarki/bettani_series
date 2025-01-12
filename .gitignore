@@ -18,7 +18,8 @@ public/UI
 public/vendor
 public/result-card
 public/fonts
-public/js
+public/js/admin.js
+
 
 # Laravel 5 & Lumen specific with changed public path
 public_html/storage
