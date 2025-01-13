@@ -88,6 +88,11 @@ Route::view('terms-and-conditions', 'front/pages/terms_conditions');
 // Route::get('getToken', [OrderHdsController::class, 'getToken']);
 // Route::get('verifypayment', [OrderHdsController::class, 'verifypayment']);
 
+// new routes for new theme
+Route::prefix('new-theme')->group(function () {
+    Route::get('/', [NewTheme::class, 'index1']);
+});
+
 
 
 Route::get('cart', [PagesController::class, 'cart']);

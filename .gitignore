@@ -16,6 +16,7 @@ public/uploads
 public/images
 public/UI
 public/vendor
+public/new-theme
 
 public/js/admin.js
 
@@ -30,3 +31,4 @@ Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+bootstrap/cache/config.php
