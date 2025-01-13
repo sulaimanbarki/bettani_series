@@ -16,7 +16,12 @@ public/uploads
 public/images
 public/UI
 public/vendor
-public/new-theme
+public/new-theme/js
+public/new-theme/css
+public/new-theme/ajax
+public/new-theme/images
+public/new-theme/scss
+public/new-theme/fonts
 
 public/js/admin.js
 
