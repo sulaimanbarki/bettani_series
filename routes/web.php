@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\Auth\LoginController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Admin\ImpersonateController;
 
 
@@ -92,6 +92,8 @@ Route::view('terms-and-conditions', 'front/pages/terms_conditions');
 Route::prefix('new-theme')->group(function () {
     Route::get('/', [NewTheme::class, 'index1']);
 });
+
+Route::get('my-new-theme', [NewTheme::class, 'index1']);
 
 
 

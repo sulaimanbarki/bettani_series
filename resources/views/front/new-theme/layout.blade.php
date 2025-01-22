@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Foxic HTML Template - Index Page - Books</title>
+    <title>{{ env('APP_NAME') }}</title>
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
     <!-- Vendor CSS -->
     <link href="{{ asset('new-theme/css/vendor/bootstrap.min.css') }}" rel="stylesheet">
@@ -15,7 +15,7 @@
     <!-- Custom styles for this template -->
     <link href="{{ asset('new-theme/css/style-books.css') }}" rel="stylesheet">
     <!-- Custom font -->
-    <link href="fonts/icomoon/icons.css" rel="stylesheet">
+    <link href="{{ asset('new-theme/fonts/icomoon/icons.css') }}" rel="stylesheet">
     <link
         href="https://fonts.googleapis.com/css2?family=Hind%20Siliguri:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
@@ -29,13 +29,16 @@
                     <div class="col-auto show-mobile">
                         <!-- Menu Toggle -->
                         <div class="menu-toggle"> <a href="#" class="mobilemenu-toggle"><i
-                                    class="icon-menu"></i></a> </div>
+                                    class="icon-menu"></i></a> </div> 
                         <!-- /Menu Toggle -->
                     </div>
                     <div class="col-auto hdr-logo">
-                        <a href="index.html" class="logo"><img
-                                srcset="images/skins/books/logo-books.png 1x, images/skins/books/logo-books2x.png 2x"
-                                alt="Logo"></a>
+                        <a href="index.html" class="logo">
+                            
+                            <img
+                                src="{{ $website->getMedia('settings')[0]->getUrl('original') }}"
+                                alt="Logo">
+                            </a>
                     </div>
                     <!--navigation-->
                     <div class="hdr-nav hide-mobile nav-holder-s">
@@ -103,7 +106,7 @@
                         </div>
                         <div class="col-auto hdr-logo">
                             <a href="index.html" class="logo"><img
-                                    srcset="images/skins/books/logo-books.png 1x, images/skins/books/logo-books2x.png 2x"
+                                    src="{{ $website->getMedia('settings')[0]->getUrl('original') }}"
                                     alt="Logo"></a>
                         </div>
                         <!--navigation-->
@@ -114,7 +117,7 @@
                                     <div class="mmenu-submenu d-flex">
                                         <ul class="submenu-list mt-0">
                                             <li><a href="index.html">Fashion (Default) Skin</a><span
-                                                    class="submenu-link-image"><img src="images/screen/screen01.png"
+                                                    class="submenu-link-image"><img src="{{ asset('new-theme/images/screen/screen01.png') }}"
                                                         alt=""></span></li>
                                             <li><a href="index-sport.html">Sport Skin</a><span
                                                     class="submenu-link-image"><img
@@ -703,7 +706,7 @@
                         <div class="minicart-prd-image image-hover-scale-circle col">
                             <a href="product.html"><img class="lazyload fade-up"
                                     src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                                    data-src="images/skins/fashion/products/product-01-1.jpg" alt=""></a>
+                                    data-src="{{ asset('new-theme/images/skins/fashion/products/product-01-1.jpg') }}" alt=""></a>
                         </div>
                         <div class="minicart-prd-info col">
                             <div class="minicart-prd-tag">FOXic</div>
@@ -833,8 +836,8 @@
                             </div>
                             <div class="collapsed-content">
                                 <ul>
-                                    <li>Phone: +01 234 567 89</li>
-                                    <li>E-mail: <a href="mailto:Foxshop@gmail.com">Foxshop@gmail.com</a></li>
+                                    <li>Phone: {{$website->phone}}</li>
+                                    <li>E-mail: <a href="mailto:{{$website->email}}">{{$website->email}}</a></li>
                                     <li>Hours: 10:00 - 18:00, Mon - Fri</li>
                                     <li><a href="#">Video Presentation</a></li>
                                 </ul>
@@ -865,16 +868,16 @@
                             <div class="collapsed-content">
                                 <ul class="social-list-circle-sm">
                                     <li>
-                                        <a href="#"><i class="icon-facebook"></i></a>
+                                        <a href="{{$website->facebook}}"><i class="icon-facebook"></i></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="icon-twitter"></i></a>
+                                        <a href="{{$website->twitter}}"><i class="icon-twitter"></i></a>
                                     </li>
                                     <li>
                                         <a href="#"><i class="icon-google"></i></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="icon-instagram"></i></a>
+                                        <a href="{{$website->instagram}}"><i class="icon-instagram"></i></a>
                                     </li>
                                     <li>
                                         <a href="#"><i class="icon-fancy"></i></a>
@@ -883,10 +886,10 @@
                                         <a href="#"><i class="icon-vimeo"></i></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="icon-youtube"></i></a>
+                                        <a href="{{$website->youtube}}"><i class="icon-youtube"></i></a>
                                     </li>
                                     <li>
-                                        <a href="#"><i class="icon-pinterest"></i></a>
+                                        <a href="{{$website->pinterest}}"><i class="icon-pinterest"></i></a>
                                     </li>
                                 </ul>
                             </div>
@@ -901,7 +904,7 @@
                     <div class="col-sm footer-bottom-col-left">
                         <div class="footer-logo">
                             <a href="index.html" class="logo"><img
-                                    srcset="images/skins/books/logo-books-footer.png 1x, images/skins/books/logo-books-footer2x.png 2x"
+                                    src="{{ $website->getMedia('settings')[0]->getUrl('original') }}"
                                     alt="Logo"></a>
                         </div>
                     </div>
@@ -1092,14 +1095,14 @@
             </div>
         </div>
     </div>
-    <script src="js/vendor-special/lazysizes.min.js"></script>
-    <script src="js/vendor-special/ls.bgset.min.js"></script>
-    <script src="js/vendor-special/ls.aspectratio.min.js"></script>
-    <script src="js/vendor-special/jquery.min.js"></script>
-    <script src="js/vendor-special/jquery.ez-plus.js"></script>
-    <script src="js/vendor-special/instafeed.min.js"></script>
-    <script src="js/vendor/vendor.min.js"></script>
-    <script src="js/app-html.js"></script>
+    <script src="{{ asset('new-theme/js/vendor-special/lazysizes.min.js') }}"></script>
+    <script src="{{ asset('new-theme/js/vendor-special/ls.bgset.min.js') }}"></script>
+    <script src="{{ asset('new-theme/js/vendor-special/ls.aspectratio.min.js') }}"></script>
+    <script src="{{ asset('new-theme/js/vendor-special/jquery.min.js') }}"></script>
+    <script src="{{ asset('new-theme/js/vendor-special/jquery.ez-plus.js') }}"></script>
+    <script src="{{ asset('new-theme/js/vendor-special/instafeed.min.js') }}"></script>
+    <script src="{{ asset('new-theme/js/vendor/vendor.min.js') }}"></script>
+    <script src="{{ asset('new-theme/js/app-html.js') }}"></script>
 </body>
 
 </html>
