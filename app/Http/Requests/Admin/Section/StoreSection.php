@@ -38,6 +38,8 @@ class StoreSection extends FormRequest
             'hassection' => ['nullable', 'boolean'],
             'book' => ['required'],
             'section' => ['nullable'],
+            'meta_description' => ['nullable', 'string'],
+            'meta_keywords' => ['nullable', 'string'],
 
         ];
     }

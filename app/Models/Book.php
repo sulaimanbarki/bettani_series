@@ -36,7 +36,9 @@ class Book extends Model  implements HasMedia
         'status',
         'online_amount',
         'ship_amount',
-        'orderNo'
+        'orderNo',
+        'meta_description',
+        'meta_keywords',
     ];
 
 

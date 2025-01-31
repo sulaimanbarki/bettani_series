@@ -83,3 +83,20 @@
         </div>
     </div>
 </div>
+
+<div class="form-group row align-items-center" :class="{'has-danger': errors.has('meta_description'), 'has-success': fields.meta_description && fields.meta_description.valid }">
+    <label for="meta_description" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">Meta Description</label>
+    <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
+        <textarea type="text" v-model="form.meta_description" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('meta_description'), 'form-control-success': fields.meta_description && fields.meta_description.valid}" id="meta_description" name="meta_description" placeholder="Meta Description"></textarea>
+        <div v-if="errors.has('meta_description')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('meta_description') }}</div>
+    </div>
+</div>
+
+
+<div class="form-group row align-items-center" :class="{'has-danger': errors.has('meta_keywords'), 'has-success': fields.meta_keywords && fields.meta_keywords.valid }">
+    <label for="meta_keywords" class="col-form-label text-md-right" :class="isFormLocalized ? 'col-md-4' : 'col-md-2'">Meta Keywords</label>
+    <div :class="isFormLocalized ? 'col-md-4' : 'col-md-9 col-xl-8'">
+        <textarea type="text" v-model="form.meta_keywords" v-validate="'required'" @input="validate($event)" class="form-control" :class="{'form-control-danger': errors.has('meta_keywords'), 'form-control-success': fields.meta_keywords && fields.meta_keywords.valid}" id="meta_keywords" name="meta_keywords" placeholder="Comma separated keywords"></textarea>
+        <div v-if="errors.has('meta_keywords')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('meta_keywords') }}</div>
+    </div>
+</div>

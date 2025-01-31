@@ -30,7 +30,9 @@ class Section extends Model implements HasMedia
         'category_id',
         'book_id',
         'hassection',
-        'section_id'
+        'section_id',
+        'meta_description',
+        'meta_keywords',
 
     ];
 

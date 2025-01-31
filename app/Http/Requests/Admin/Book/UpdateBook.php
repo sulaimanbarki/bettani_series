@@ -39,6 +39,8 @@ class UpdateBook extends FormRequest
             'online_amount' => ['required', 'numeric'],
             'ship_amount' => ['required', 'numeric'],
             'orderNo' => ['nullable', 'numeric'],
+            'meta_description' => ['nullable', 'string'],
+            'meta_keywords' => ['nullable', 'string'],
         ];
     }
 

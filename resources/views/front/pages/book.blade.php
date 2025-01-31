@@ -1,6 +1,10 @@
 @extends('front/layout/layout')
 @section('content')
 @section('title', $book->title)
+
+@section('meta_description', $book->meta_description ?? $book->title)
+@section('meta_keywords', $book->meta_keywords ?? $book->title)
+
 <div class="page-header border-bottom">
     <div class="container">
         <div class="d-md-flex justify-content-between align-items-center py-4">

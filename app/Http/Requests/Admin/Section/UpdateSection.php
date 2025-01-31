@@ -38,6 +38,8 @@ class UpdateSection extends FormRequest
             // 'book_id' => ['required', 'integer'],
             'book' => ['required'],
             'section' => ['sometimes'],
+            'meta_description' => ['nullable', 'string'],
+            'meta_keywords' => ['nullable', 'string'],
         ];
     }
 

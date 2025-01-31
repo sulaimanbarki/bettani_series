@@ -2,6 +2,10 @@
 @section('content')
 @section('title',$section->title)
 
+@section('meta_description', $section->meta_description ?? $section->title)
+@section('meta_keywords', $section->meta_keywords ?? $section->title)
+
+
 <style>
     #questionTab:before {
         content: '';
