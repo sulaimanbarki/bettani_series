@@ -10,6 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="base_url" content="{{ URL::to('/') }}">
+
+    <meta name="description" content="@yield('meta_description', 'Default meta description here')">
+    <meta name="keywords" content="@yield('meta_keywords', 'default, keywords, here')">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph for social media sharing -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="@yield('title', 'Bettani Series')">
+    <meta property="og:description" content="@yield('meta_description', 'Default meta description here')">
+    @php
+        $og_image = $website->getMedia('settings')[0]->getUrl('original');
+    @endphp
+    <meta property="og:image" content="@yield('og_image', $og_image)">
+    
     
     <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
     <link rel="shortcut icon" href="{{ asset('UI/assets/img/favicon.png') }}">
