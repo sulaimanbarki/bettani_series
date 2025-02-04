@@ -22,13 +22,13 @@ use App\Http\Controllers\Admin\ImpersonateController;
 */
 //Clear Cache facade value:
 Route::get('/clear-cache', function() {
-    $exitCode = Artisan::call('cache:clear');
-    Aritsan::call('optimize:clear');
+    $exitCode = \Artisan::call('cache:clear');
+    \Artisan::call('optimize:clear');
     return '<h1>Cache facade value cleared</h1>';
 });
 
 Route::get('/key', function() {
-    $exitCode = Artisan::call('key:generate');
+    $exitCode = \Artisan::call('key:generate');
     return '<h1>key:generate value cleared</h1>';
 });
 
@@ -565,3 +565,6 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
 Route::get('/admin/impersonate/{user}', [ImpersonateController::class, 'impersonate'])->name('impersonate');
 Route::get('/stop-impersonating', [ImpersonateController::class, 'stopImpersonating'])->name('stop-impersonating');
 
+
+// inclue routes from seo.php file
+include 'seo.php';
