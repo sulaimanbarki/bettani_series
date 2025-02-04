@@ -2,55 +2,55 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>http://127.0.0.1:8000</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:54+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
     <url>
         <loc>http://127.0.0.1:8000/about-us</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:54+00:00</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         </url>
     <url>
         <loc>http://127.0.0.1:8000/contact-us</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:54+00:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
         </url>
     <url>
         <loc>http://127.0.0.1:8000/test</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:54+00:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
         </url>
     <url>
         <loc>http://127.0.0.1:8000/test-result</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:54+00:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
         </url>
     <url>
         <loc>http://127.0.0.1:8000/terms-and-conditions</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:54+00:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
         </url>
     <url>
         <loc>http://127.0.0.1:8000/privacy-policy</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:54+00:00</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
         </url>
     <url>
         <loc>http://127.0.0.1:8000/books</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:54+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
     <url>
         <loc>http://127.0.0.1:8000/book/treasure-of-knowledge-volume-2</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:55+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
@@ -176,7 +176,7 @@
         </url>
     <url>
         <loc>http://127.0.0.1:8000/book/encyclopedia-of-education-and-educational-research-volume-i</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:55+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
@@ -1064,7 +1064,7 @@
         </url>
     <url>
         <loc>http://127.0.0.1:8000/book/treasure-of-knowledge-volume-1</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:55+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
@@ -1202,7 +1202,7 @@
         </url>
     <url>
         <loc>http://127.0.0.1:8000/book/the-bouquet</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:55+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
@@ -1340,7 +1340,7 @@
         </url>
     <url>
         <loc>http://127.0.0.1:8000/book/treasure-of-knowledge-for-ppsc-educator-guide</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:55+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
@@ -1550,7 +1550,7 @@
         </url>
     <url>
         <loc>http://127.0.0.1:8000/book/computer-science-mcqs</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:55+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
@@ -2174,7 +2174,7 @@
         </url>
     <url>
         <loc>http://127.0.0.1:8000/book/current-affairs-mcqs-2020-2021-2022</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:55+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
@@ -2432,7 +2432,7 @@
         </url>
     <url>
         <loc>http://127.0.0.1:8000/book/etea-nts-solved-papers</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:55+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
@@ -2774,7 +2774,7 @@
         </url>
     <url>
         <loc>http://127.0.0.1:8000/book/treasure-of-knowledge-volume-3-biology-chemistry</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:55+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
@@ -3290,7 +3290,7 @@
         </url>
     <url>
         <loc>http://127.0.0.1:8000/book/treasure-of-knowledge-volume-3-maths-physics</loc>
-        <lastmod>2025-02-03T18:18:41+00:00</lastmod>
+        <lastmod>2025-02-04T05:06:55+00:00</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         </url>
