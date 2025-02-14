@@ -99,6 +99,21 @@
         width: 70%;
         margin: 0 auto;
     }
+
+    @media screen and (min-width: 1024px) {
+        .portfolio__container {
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+    }
+
+    @media screen and (max-width: 1024px) {
+        .portfolio__container {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        }
+    }
 </style>
 
 <div class="row" style="background-image: url({{ asset('UI/assets/img/1920x588/img1.jpg') }}); " id="hideOverflow">
@@ -301,7 +316,8 @@
             <img src='https://cdn-icons-png.flaticon.com/512/3437/3437297.png' alt="page">
             <div class="text-container">
                 <h2>Master Every Exam, One Question at a Time!</h2>
-                <p>Dive into a vast collection of 160,000+ MCQs tailored for government job exams. Practice smarter, score higher, and achieve your dreams with our comprehensive quiz and test options</p>
+                <p>Dive into a vast collection of 160,000+ MCQs tailored for government job exams. Practice smarter,
+                    score higher, and achieve your dreams with our comprehensive quiz and test options</p>
             </div>
         </article>
 
@@ -309,7 +325,8 @@
             <img src='https://cdn-icons-png.flaticon.com/512/993/993725.png' alt="page">
             <div class="text-container">
                 <h2>Your Ultimate Prep Hub for Govt Jobs!</h2>
-                <p>From free resources to premium content, we’ve got everything you need to ace your exams. Explore quizzes, mock tests, and expert-curated MCQs to stay ahead of the competition</p>
+                <p>From free resources to premium content, we’ve got everything you need to ace your exams. Explore
+                    quizzes, mock tests, and expert-curated MCQs to stay ahead of the competition</p>
             </div>
         </article>
 
@@ -317,7 +334,8 @@
             <img src='https://cdn-icons-png.flaticon.com/512/1055/1055645.png' alt="app">
             <div class="text-container">
                 <h2>Where Knowledge Meets Success!</h2>
-                <p>Prepare confidently with our extensive MCQ library, designed to cover every topic and category for government job exams. Start your journey to success today!</p>
+                <p>Prepare confidently with our extensive MCQ library, designed to cover every topic and category for
+                    government job exams. Start your journey to success today!</p>
             </div>
         </article>
 
@@ -325,7 +343,8 @@
             <img src='https://cdn-icons-png.flaticon.com/512/4257/4257674.png' alt="app">
             <div class="text-container">
                 <h2>Practice Smarter, Not Harder!</h2>
-                <p>With 160,000+ MCQs, quizzes, and mock tests, we make exam preparation efficient and effective. Get ready to conquer your exams with ease</p>
+                <p>With 160,000+ MCQs, quizzes, and mock tests, we make exam preparation efficient and effective. Get
+                    ready to conquer your exams with ease</p>
             </div>
         </article>
 
@@ -333,7 +352,8 @@
             <img src='https://cdn-icons-png.flaticon.com/512/5956/5956494.png' alt="gallery">
             <div class="text-container">
                 <h2>Unlock Your Potential with Every Question!</h2>
-                <p>Our platform offers a seamless learning experience with free and paid content, quizzes, and tests. Prepare online and take the first step toward your dream job</p>
+                <p>Our platform offers a seamless learning experience with free and paid content, quizzes, and tests.
+                    Prepare online and take the first step toward your dream job</p>
             </div>
         </article>
 
@@ -341,7 +361,8 @@
             <img src='https://cdn-icons-png.flaticon.com/512/891/891175.png' alt="Calculator">
             <div class="text-container">
                 <h2>Your Success Starts Here!</h2>
-                <p>Access the largest MCQ database for government job exams, complete with quizzes, mock tests, and expert guidance. Prepare, practice, and prosper with us</p>
+                <p>Access the largest MCQ database for government job exams, complete with quizzes, mock tests, and
+                    expert guidance. Prepare, practice, and prosper with us</p>
             </div>
         </article>
     </div>
