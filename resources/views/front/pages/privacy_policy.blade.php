@@ -1,4 +1,8 @@
 @extends('front/layout/layout')
+
+@section('meta_description', $metaData['privacy-page']['meta_description'] ?? $defaultMeta['meta_description'])
+@section('meta_keywords', $metaData['privacy-page']['meta_keywords'] ?? $defaultMeta['meta_keywords'])
+
 @section('content')
 @section('title', 'Privacy Policy')
 <main id="content">

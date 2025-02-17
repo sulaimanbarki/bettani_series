@@ -1,9 +1,11 @@
 @extends('front/layout/layout')
+
+@section('meta_description', $metaData['contactus']['meta_description'] ?? $defaultMeta['meta_description'])
+@section('meta_keywords', $metaData['contactus']['meta_keywords'] ?? $defaultMeta['meta_keywords'])
+
 @section('content')
 @section('title','Contact Us')
 
-@section('meta_description', 'Bettani Series is basically the technological root with numbers of books both in hard and soft form available in the market as well as online www.bettaniseries.com which is the dire need of the day to avoid tests related confusion at all. The team of Bettani Series highly appreciates reformative comments of the well wishers and candidates after studying books and extra mandatory learning materials available on this website and market') <!-- Meta Description -->
-@section('meta_keywords', 'MCQs, Books, Online MCQs, MCQ Collection, Bettani Series') <!-- Meta Keywords -->
 
 
 <main id="content">

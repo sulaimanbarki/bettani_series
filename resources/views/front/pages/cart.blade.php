@@ -1,4 +1,8 @@
 @extends('front/layout/layout')
+
+@section('meta_description', $metaData['cart']['meta_description'] ?? $defaultMeta['meta_description'])
+@section('meta_keywords', $metaData['cart']['meta_keywords'] ?? $defaultMeta['meta_keywords'])
+
 @section('content')
 @section('title','Cart')
 <div class="page-header border-bottom">

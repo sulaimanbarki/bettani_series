@@ -1,4 +1,8 @@
 @extends('front/layout/layout')
+
+@section('meta_description', $metaData['test']['meta_description'] ?? $defaultMeta['meta_description'])
+@section('meta_keywords', $metaData['test']['meta_keywords'] ?? $defaultMeta['meta_keywords'])
+
 @section('content')
 @section('title', 'Tests')
 <main id="content">

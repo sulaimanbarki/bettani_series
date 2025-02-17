@@ -1,4 +1,8 @@
 @extends('front/layout/layout')
+
+@section('meta_description', $metaData['videos']['meta_description'] ?? $defaultMeta['meta_description'])
+@section('meta_keywords', $metaData['videos']['meta_keywords'] ?? $defaultMeta['meta_keywords'])
+
 @section('content')
 @section('title','Introduction and training Videos')
 <main id="content">

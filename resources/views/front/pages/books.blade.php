@@ -1,8 +1,7 @@
 @extends('front/layout/layout')
 
-{{-- @section('title', 'Books - MCQ Collection') <!-- SEO Title --> --}}
-@section('meta_description', 'Explore a wide collection of MCQs from various subjects, books, and categories. Enhance your learning and preparation.') <!-- Meta Description -->
-@section('meta_keywords', 'MCQs, Books, Online MCQs, MCQ Collection, Bettani Series') <!-- Meta Keywords -->
+@section('meta_description', $metaData['books']['meta_description'] ?? $defaultMeta['meta_description'])
+@section('meta_keywords', $metaData['books']['meta_keywords'] ?? $defaultMeta['meta_keywords'])
 
 @section('content')
 @section('title','Books')

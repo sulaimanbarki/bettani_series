@@ -2,13 +2,8 @@
 @section('title', 'Home')
 @section('content')
 
-@section('meta_description',
-    'Bettani Series is basically the technological root with numbers of books both in hard and
-    soft form available in the market as well as online www.bettaniseries.com which is the dire need of the day to avoid
-    tests related confusion at all. The team of Bettani Series highly appreciates reformative comments of the well wishers
-    and candidates after studying books and extra mandatory learning materials available on this website and market')
-    <!-- Meta Description -->
-@section('meta_keywords', 'MCQs, Books, Online MCQs, MCQ Collection, Bettani Series') <!-- Meta Keywords -->
+@section('meta_description', $metaData['home']['meta_description'] ?? $defaultMeta['meta_description'])
+@section('meta_keywords', $metaData['home']['meta_keywords'] ?? $defaultMeta['meta_keywords'])
 
 <style>
     .a-slide {
