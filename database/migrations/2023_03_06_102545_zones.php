@@ -13,6 +13,7 @@ class Zones extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('zones'))
         Schema::create('zones', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');

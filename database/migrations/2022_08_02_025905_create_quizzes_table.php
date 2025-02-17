@@ -14,6 +14,7 @@ class CreateQuizzesTable extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('quizes'))
         Schema::create('quizes', function (Blueprint $table) {
             $table->id();
             $table->string('title');

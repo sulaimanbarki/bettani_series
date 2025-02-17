@@ -13,6 +13,7 @@ class AddTestIdToQuestions extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('questions'))
         Schema::table('questions', function (Blueprint $table) {
             $table->string('belong_to')->default('book');
             $table->integer('test_id')->nullable();

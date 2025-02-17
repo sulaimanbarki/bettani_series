@@ -14,6 +14,7 @@ class CreateTestTakesTable extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('test_takes'))
         Schema::create('test_takes', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('test_id');

@@ -13,6 +13,7 @@ class CreateTestQuestionsTable extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('test_questions'))
         Schema::create('test_questions', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('test_id');

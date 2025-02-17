@@ -22,3 +22,4 @@ import './menu';
 import './sub-menu';
 import './drop-down-menu';
 import './zone';
+import './page';

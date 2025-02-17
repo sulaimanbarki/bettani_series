@@ -13,21 +13,23 @@ class CreateOrderItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('order_items', function (Blueprint $table) {
-            $table->id();
-            $table->string('session_id')->nullable();
-            $table->unsignedBigInteger('orderhd_id')->nullable();
-            $table->unsignedBigInteger('user_id')->default(0);
-            $table->string('model_type')->nullable();
-            $table->unsignedBigInteger('model_id')->nullable();
-            $table->string('collection_name')->nullable();
-            $table->double('amount')->default(0.0);
-            $table->string('quantity')->default(1);
-            $table->double('total')->default(0.0);
-            $table->string('status')->default(0);
-            $table->timestamps();
-            $table->softDeletes();
-        });
+        if (!Schema::hasTable('order_items')) {
+            Schema::create('order_items', function (Blueprint $table) {
+                $table->id();
+                $table->string('session_id')->nullable();
+                $table->unsignedBigInteger('orderhd_id')->nullable();
+                $table->unsignedBigInteger('user_id')->default(0);
+                $table->string('model_type')->nullable();
+                $table->unsignedBigInteger('model_id')->nullable();
+                $table->string('collection_name')->nullable();
+                $table->double('amount')->default(0.0);
+                $table->string('quantity')->default(1);
+                $table->double('total')->default(0.0);
+                $table->string('status')->default(0);
+                $table->timestamps();
+                $table->softDeletes();
+            });
+        }
     }
 
     /**

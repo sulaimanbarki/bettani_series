@@ -411,3 +411,16 @@ $factory->define(App\Models\Zone::class, static function (Faker\Generator $faker
         
     ];
 });
+/** @var  \Illuminate\Database\Eloquent\Factory $factory */
+$factory->define(App\Models\Page::class, static function (Faker\Generator $faker) {
+    return [
+        'created_at' => $faker->dateTime,
+        'meta_description' => $faker->text(),
+        'meta_keywords' => $faker->text(),
+        'page_name' => $faker->sentence,
+        'page_title' => $faker->sentence,
+        'updated_at' => $faker->dateTime,
+        
+        
+    ];
+});

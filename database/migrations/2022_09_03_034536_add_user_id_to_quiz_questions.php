@@ -13,6 +13,7 @@ class AddUserIdToQuizQuestions extends Migration
      */
     public function up()
     {
+        if (!Schema::hasColumn('quiz_questions', 'user_id'))
         Schema::table('quiz_questions', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->nullable();
         });

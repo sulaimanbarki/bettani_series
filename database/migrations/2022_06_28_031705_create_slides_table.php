@@ -13,12 +13,14 @@ class CreateSlidesTable extends Migration
      */
     public function up()
     {
-        Schema::create('slides', function (Blueprint $table) {
-            $table->id();
-            $table->text('description')->nullable();
-            $table->integer('type')->nullable();
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('slides')) {
+            Schema::create('slides', function (Blueprint $table) {
+                $table->id();
+                $table->text('description')->nullable();
+                $table->integer('type')->nullable();
+                $table->timestamps();
+            });
+        }
     }
 
     /**

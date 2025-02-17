@@ -13,6 +13,7 @@ class AddColToTest extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('tests'))
         Schema::table('tests', function (Blueprint $table) {
             $table->integer('province_result')->default(0);
             $table->integer('zone_result')->default(0);

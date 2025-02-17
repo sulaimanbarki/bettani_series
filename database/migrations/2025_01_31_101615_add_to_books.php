@@ -13,6 +13,7 @@ class AddToBooks extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('books'))
         Schema::table('books', function (Blueprint $table) {
             // meta_description
             $table->string('meta_description')->nullable();

@@ -13,6 +13,7 @@ class CreateVisitsTable extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable(config('visitor.table_name')))
         Schema::create(config('visitor.table_name'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('method')->nullable();

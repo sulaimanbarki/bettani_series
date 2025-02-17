@@ -35,7 +35,8 @@
             <li class="nav-item"><a class="nav-link" href="{{ url('admin/provinces') }}"><i class="nav-icon icon-compass"></i> {{ trans('admin.province.title') }}</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url('admin/districts') }}"><i class="nav-icon icon-puzzle"></i> {{ trans('admin.district.title') }}</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url('admin/zones') }}"><i class="nav-icon icon-star"></i> Zones</a></li>
-            {{-- Do not delete me :) I'm used for auto-generation menu items --}}
+            <li class="nav-item"><a class="nav-link" href="{{ url('admin/pages') }}"><i class="nav-icon icon-diamond"></i> {{ trans('admin.page.title') }}</a></li>
+           {{-- Do not delete me :) I'm used for auto-generation menu items --}}
            <li class="nav-item"><a class="nav-link" href="{{ url('admin/intro-videos') }}"><i class="nav-icon icon-magnet"></i> {{ trans('admin.intro-video.title') }}</a></li>
            {{-- <li class="nav-item"><a class="nav-link" href="{{ url('admin/menus') }}"><i class="nav-icon icon-compass"></i> {{ trans('admin.menu.title') }}</a></li> --}}
            {{-- <li class="nav-item"><a class="nav-link" href="{{ url('admin/sub-menus') }}"><i class="nav-icon icon-energy"></i> {{ trans('admin.sub-menu.title') }}</a></li> --}}

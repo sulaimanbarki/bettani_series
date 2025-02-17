@@ -13,6 +13,7 @@ class AddColoumnToTest extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('tests'))
         Schema::table('tests', function (Blueprint $table) {
             $table->integer('individual_result')->default(0);
             $table->integer('overall_result')->default(0);

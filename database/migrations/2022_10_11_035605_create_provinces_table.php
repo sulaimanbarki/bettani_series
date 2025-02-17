@@ -13,6 +13,7 @@ class CreateProvincesTable extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('provinces'))
         Schema::create('provinces', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullab();

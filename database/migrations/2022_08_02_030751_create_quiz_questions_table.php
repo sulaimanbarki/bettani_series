@@ -14,6 +14,7 @@ class CreateQuizQuestionsTable extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('quiz_questions'))
         Schema::create('quiz_questions', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('quiz_id');

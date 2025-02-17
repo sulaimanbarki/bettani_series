@@ -13,6 +13,7 @@ class AddProvinceIdToDistricts extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('districts'))
         Schema::table('districts', function (Blueprint $table) {
             $table->integer('province_id')->nullable();
             $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');

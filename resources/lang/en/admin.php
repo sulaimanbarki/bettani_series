@@ -634,5 +634,24 @@ return [
         ],
     ],
 
+    'page' => [
+        'title' => 'Pages',
+
+        'actions' => [
+            'index' => 'Pages',
+            'create' => 'New Page',
+            'edit' => 'Edit :name',
+        ],
+
+        'columns' => [
+            'id' => 'ID',
+            'meta_description' => 'Meta description',
+            'meta_keywords' => 'Meta keywords',
+            'page_name' => 'Page name',
+            'page_title' => 'Page title',
+            
+        ],
+    ],
+
     // Do not delete me :) I'm used for auto-generation
 ];

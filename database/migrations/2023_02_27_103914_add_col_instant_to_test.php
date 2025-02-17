@@ -13,6 +13,7 @@ class AddColInstantToTest extends Migration
      */
     public function up()
     {
+        if (!Schema::hasTable('tests'))
         Schema::table('tests', function (Blueprint $table) {
             $table->integer('instant_result')->default(0);
         });
