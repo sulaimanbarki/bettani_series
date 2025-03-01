@@ -65,7 +65,7 @@
                                         <span>NAME</span>
                                     </div>
                                     <div class="col-6 text-right">
-                                        <span>{{$test_apply->name}}</span>
+                                        <span>{{isset($test_apply) ? $test_apply->name : ""}}</span>
                                     </div>
                                 </div>
 

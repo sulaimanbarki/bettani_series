@@ -82,6 +82,7 @@ class TestApplyController extends Controller
         $testApply->date = date('Y-m-d');
         $testApply->test_code = rand(100000, 999999);
         $testApply->name = $request->name;
+        $testApply->email = $request->email;
         $testApply->fname = $request->fname;
         $testApply->phone = $request->phone;
         $testApply->gender = $request->gender;
@@ -208,7 +209,7 @@ class TestApplyController extends Controller
 
         $test = Test::find($request->test_id);
 
-        $user_email = User::where('id', $student->user_id)->first()->email;
+        $user_email = $student->email;
         if ($student) {
             $password = $student->test_password;
             return view('front.pages.printOurSlip', compact('student', 'user_email', 'test'));
