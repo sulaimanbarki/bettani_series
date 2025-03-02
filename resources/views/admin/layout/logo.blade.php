@@ -5,3 +5,27 @@
     {{--Text Logo--}}
     Bettani Series | Admin Panel
 </a>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    function syncCheckboxes() {
+        document.querySelectorAll(".form-check-input").forEach(function (checkbox) {
+            let hiddenInput = checkbox.closest(".form-check").querySelector('input[type="hidden"]');
+
+            if (hiddenInput) {
+                // Initialize checkbox state based on the hidden input
+                checkbox.checked = hiddenInput.value === "1";
+
+                // Listen for checkbox changes
+                checkbox.addEventListener("change", function () {
+                    hiddenInput.value = checkbox.checked ? "1" : "0";
+                });
+            }
+        });
+    }
+
+    // Run the function on page load
+    syncCheckboxes();
+});
+
+</script>
