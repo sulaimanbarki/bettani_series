@@ -84,8 +84,7 @@
         }
     </style>
 
-   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7662829215588279"
-     crossorigin="anonymous"></script>
+   
      <!--<link href="{{ asset('UI/assets/vendor/bootstrap5/css/bootstrap.min.css') }}" rel="stylesheet"> -->
      <!--<script src="{{ asset('UI/assets/vendor/bootstrap5/js/bootstrap.bundle.min.js') }}"></script> -->
      <!-- adstera ad-->
