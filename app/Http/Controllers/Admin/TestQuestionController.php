@@ -54,8 +54,10 @@ class TestQuestionController extends Controller
         $correct_answers = 0;
         foreach ($test_questions as $question) {
             $qstn = Question::find($question->question_id);
-            if ($qstn->answer == $question->result) {
-                $correct_answers++;
+            if ($qstn){
+                if ($qstn->answer == $question->result) {
+                    $correct_answers++;
+                }
             }
         }
         $test->marks = $correct_answers;
@@ -292,6 +294,7 @@ class TestQuestionController extends Controller
         }
         if ($type == 'next') {
             $question = $test_query->clone()->where('question_id', $question_id)->first();
+            // dd($question_id);
             if ($question) {
                 $question_id = $question->question_id;
             } else {
