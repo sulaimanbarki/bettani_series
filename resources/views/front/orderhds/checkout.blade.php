@@ -206,13 +206,13 @@
                                                             <br> <label>Attachment Proof</label>
                                                             <input class="form-control" type="file" name="transaction_attachment" id="transaction_attachment">
                                                         </li>
-                                                        <li class="wc_payment_method payment_method_cod">
+                                                        {{-- <li class="wc_payment_method payment_method_cod">
                                                             <input id="payment_method_cod" type="radio" class="input-radio" name="payment_method" value="jazzcash" data-order_button_text="">
                                                             <label for="payment_method_cod">Jazz Cash </label>
                                                             <div class="payment_box payment_method_cod" style="display: block;">
                                                                 <p>Pay with cash upon delivery.</p>
                                                             </div>
-                                                        </li>
+                                                        </li> --}}
                                                     </ul>
                                                 </div>
                                             </div>
