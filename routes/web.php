@@ -27,6 +27,12 @@ Route::get('/clear-cache', function() {
     return '<h1>Cache facade value cleared</h1>';
 });
 
+// run dynamic command
+Route::get('/run-command/{command}', function($command) {
+    $exitCode = \Artisan::call($command);
+    return '<h1>'.$command.' command executed</h1>';
+});
+
 Route::get('/key', function() {
     $exitCode = \Artisan::call('key:generate');
     return '<h1>key:generate value cleared</h1>';
