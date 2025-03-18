@@ -19,64 +19,70 @@ use App\Http\Controllers\Admin\ImpersonateController;
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
+
 */
 //Clear Cache facade value:
-Route::get('/clear-cache', function() {
+Route::get('/clear-cache', function () {
     $exitCode = \Artisan::call('cache:clear');
     \Artisan::call('optimize:clear');
     return '<h1>Cache facade value cleared</h1>';
 });
 
-// run dynamic command
-Route::get('/run-command/{command}', function($command) {
-    $exitCode = \Artisan::call($command);
-    return '<h1>'.$command.' command executed</h1>';
+
+Route::get('/test', function () {
+    return '<h1>test</h1>';
 });
 
-Route::get('/key', function() {
+// run dynamic command
+Route::get('/run-command/{command}', function ($command) {
+    $exitCode = \Artisan::call($command);
+    return '<h1>' . $command . ' command executed</h1>';
+});
+
+Route::get('/key', function () {
     $exitCode = \Artisan::call('key:generate');
     return '<h1>key:generate value cleared</h1>';
 });
 
 
-Route::get('/extension', function() {
-    
-        if (function_exists('finfo_open')) {
-    echo "Fileinfo extension is installed and enabled.";
-} else {
-    echo "Fileinfo extension is not installed or enabled.";
-}
- echo "<pre>";
-      print_r(get_loaded_extensions());
-      echo "<pre/>";
-      exit;
+Route::get('/extension', function () {
+
+    if (function_exists('finfo_open')) {
+        echo "Fileinfo extension is installed and enabled.";
+    } else {
+        echo "Fileinfo extension is not installed or enabled.";
+    }
+    echo "<pre>";
+    print_r(get_loaded_extensions());
+    echo "<pre/>";
+    exit;
 });
 //Reoptimized class loader:
-Route::get('/optimize', function() {
+Route::get('/optimize', function () {
     $exitCode = \Artisan::call('optimize');
     return '<h1>Reoptimized class loader</h1>';
 });
 
 //Route cache:
-Route::get('/route-cache', function() {
+Route::get('/route-cache', function () {
     $exitCode = \Artisan::call('route:cache');
     return '<h1>Routes cached</h1>';
 });
 
 //Clear Route cache:
-Route::get('/route-clear', function() {
+Route::get('/route-clear', function () {
     $exitCode = \Artisan::call('route:clear');
     return '<h1>Route cache cleared</h1>';
 });
 
 //Clear View cache:
-Route::get('/view-clear', function() {
+Route::get('/view-clear', function () {
     $exitCode = \Artisan::call('view:clear');
     return '<h1>View cache cleared</h1>';
 });
 
 //Clear Config cache:
-Route::get('/config-cache', function() {
+Route::get('/config-cache', function () {
     $exitCode = \Artisan::call('config:cache');
     return '<h1>Clear Config cleared</h1>';
 });
@@ -392,12 +398,12 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
             // payment_reports
             Route::get('/payment-reports',                          'ReportsController@payment_reports')->name('payment_reports');
             Route::get('/statistics',                          'ReportsController@statistics')->name('statistics');
-//            Route::get('/create',                                       'OrderDtsController@create')->name('create');
-//            Route::post('/',                                            'OrderDtsController@store')->name('store');
-//            Route::get('/{orderDt}/edit',                               'OrderDtsController@edit')->name('edit');
-//            Route::post('/bulk-destroy',                                'OrderDtsController@bulkDestroy')->name('bulk-destroy');
-//            Route::post('/{orderDt}',                                   'OrderDtsController@update')->name('update');
-//            Route::delete('/{orderDt}',                                 'OrderDtsController@destroy')->name('destroy');
+            //            Route::get('/create',                                       'OrderDtsController@create')->name('create');
+            //            Route::post('/',                                            'OrderDtsController@store')->name('store');
+            //            Route::get('/{orderDt}/edit',                               'OrderDtsController@edit')->name('edit');
+            //            Route::post('/bulk-destroy',                                'OrderDtsController@bulkDestroy')->name('bulk-destroy');
+            //            Route::post('/{orderDt}',                                   'OrderDtsController@update')->name('update');
+            //            Route::delete('/{orderDt}',                                 'OrderDtsController@destroy')->name('destroy');
         });
     });
 });
@@ -490,8 +496,8 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
 
 /* Auto-generated admin routes */
 Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
-    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
-        Route::prefix('intro-videos')->name('intro-videos/')->group(static function() {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function () {
+        Route::prefix('intro-videos')->name('intro-videos/')->group(static function () {
             Route::get('/',                                             'IntroVideosController@index')->name('index');
             Route::get('/create',                                       'IntroVideosController@create')->name('create');
             Route::post('/',                                            'IntroVideosController@store')->name('store');
@@ -507,8 +513,8 @@ Route::get('videos/{slug}', 'App\Http\Controllers\PagesController@videos');
 
 /* Auto-generated admin routes */
 Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
-    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
-        Route::prefix('menus')->name('menus/')->group(static function() {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function () {
+        Route::prefix('menus')->name('menus/')->group(static function () {
             Route::get('/',                                             'MenusController@index')->name('index');
             Route::get('/create',                                       'MenusController@create')->name('create');
             Route::post('/',                                            'MenusController@store')->name('store');
@@ -522,8 +528,8 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
 
 /* Auto-generated admin routes */
 Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
-    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
-        Route::prefix('sub-menus')->name('sub-menus/')->group(static function() {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function () {
+        Route::prefix('sub-menus')->name('sub-menus/')->group(static function () {
             Route::get('/',                                             'SubMenusController@index')->name('index');
             Route::get('/create',                                       'SubMenusController@create')->name('create');
             Route::post('/',                                            'SubMenusController@store')->name('store');
@@ -537,8 +543,8 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
 
 /* Auto-generated admin routes */
 Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
-    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
-        Route::prefix('drop-down-menus')->name('drop-down-menus/')->group(static function() {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function () {
+        Route::prefix('drop-down-menus')->name('drop-down-menus/')->group(static function () {
             Route::get('/',                                             'DropDownMenusController@index')->name('index');
             Route::get('/create',                                       'DropDownMenusController@create')->name('create');
             Route::post('/',                                            'DropDownMenusController@store')->name('store');
@@ -553,8 +559,8 @@ Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->gro
 
 /* Auto-generated admin routes */
 Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
-    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
-        Route::prefix('zones')->name('zones/')->group(static function() {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function () {
+        Route::prefix('zones')->name('zones/')->group(static function () {
             Route::get('/',                                             'ZonesController@index')->name('index');
             Route::get('/create',                                       'ZonesController@create')->name('create');
             Route::post('/',                                            'ZonesController@store')->name('store');
@@ -577,8 +583,8 @@ include 'seo.php';
 
 /* Auto-generated admin routes */
 Route::middleware(['auth:' . config('admin-auth.defaults.guard'), 'admin'])->group(static function () {
-    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function() {
-        Route::prefix('pages')->name('pages/')->group(static function() {
+    Route::prefix('admin')->namespace('App\Http\Controllers\Admin')->name('admin/')->group(static function () {
+        Route::prefix('pages')->name('pages/')->group(static function () {
             Route::get('/',                                             'PagesController@index')->name('index');
             Route::get('/create',                                       'PagesController@create')->name('create');
             Route::post('/',                                            'PagesController@store')->name('store');
