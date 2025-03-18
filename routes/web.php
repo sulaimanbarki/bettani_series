@@ -29,7 +29,7 @@ Route::get('/clear-cache', function () {
 });
 
 
-Route::get('/test', function () {
+Route::get('/test_webhook', function () {
     return '<h1>test</h1>';
 });
 
