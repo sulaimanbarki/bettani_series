@@ -112,7 +112,7 @@
 </style>
 
 <div class="row" style="background-image: url({{ asset('UI/assets/img/1920x588/img1.jpg') }}); " id="hideOverflow">
-    {{-- <div class="col-sm-6" style="padding-right: 0 !important; padding-left: 0 !important;">
+    <div class="col-sm-6" style="padding-right: 0 !important; padding-left: 0 !important;">
         <div class="js-slick-carousel u-slick "
             data-pagi-classes="text-center  u-slick__pagination position-absolute right-0 left-0  bottom-0"
             data-slick='{"slidesToShow": 1, "slidesToScroll": 1, "autoplay":true}'>
@@ -134,8 +134,8 @@
                 </div>
             @endforeach
         </div>
-    </div> --}}
-    <div class="col-sm-12 paddin-top" style="padding-left: 0 !important; padding-right: 0 !important">
+    </div>
+    <div class="col-sm-6 paddin-top" style="padding-left: 0 !important; padding-right: 0 !important">
         <style>
             /* paddin-top when on small screen then padding 100px top */
             @media (max-width: 767px) {

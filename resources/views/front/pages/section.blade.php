@@ -4,8 +4,8 @@
 <div class="page-header mb-8">
     <div class="bg-img-hero bg-gradient-primary" style="background-image: url(../../assets/img/1920x840/img1.jpg);">
         <div class="container position-relative mb-2">
-            <div class="d-flex justify-content-center space-2 space-lg-4">
-                <h6 class="font-weight-medium text-white font-size-12 py-lg-5">Sections</h6>
+            <div class="d-flex justify-content-center">
+                <h2 class="font-weight-medium text-white">Sections</h2>
             </div>
             <script type="text/javascript">
         	atOptions = {
@@ -17,7 +17,7 @@
         	};
         	document.write('');
         </script>
-            <nav class="woocommerce-breadcrumb font-size-2 d-flex justify-content-center align-items-center pb-4">
+            <nav class="woocommerce-breadcrumb font-size-2 d-flex justify-content-center align-items-center">
                 <a class="text-white" href="{{url('/')}}">Home</a>
                 <span class="breadcrumb-separator text-white mx-1"><i class="fas fa-angle-right"></i></span>
                 <a class="text-white" href="{{url('book',$book['slug'])}}">{{$book['title']}}</a>
