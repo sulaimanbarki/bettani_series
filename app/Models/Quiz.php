@@ -25,6 +25,10 @@ class Quiz extends Model
         'quiz_in_section'
     ];
 
+    public function questions()
+    {
+        return $this->hasMany(QuizQuestion::class, 'quiz_id');
+    }
 
  
 

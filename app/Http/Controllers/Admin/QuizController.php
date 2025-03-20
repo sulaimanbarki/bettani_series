@@ -111,13 +111,30 @@ class QuizController extends Controller
             ]);
         }
         $question = QuizQuestion::where('quiz_id', $quiz->id)->get();
-        $data = $question->transform(function ($item, $key) {
-            $item->quiz_title = Quiz::where('id', $item->quiz_id)->first()->title;
-            $item->question_count = QuizQuestion::where('quiz_id', $item->quiz_id)->count();
-            $item->question = Question::find($item->question_id)->description;
-            $item->startingtime = Quiz::where('id', $item->quiz_id)->first()->startingtime;
-            return $item;
-        });
+
+        // Fetch all required data in one query
+        $quiz = Quiz::with('questions')->find($quiz->id);
+        $questionIds = $question->pluck('question_id');
+        $questionsData = Question::whereIn('id', $questionIds)->pluck('description', 'id');
+        $quizQuestionCounts = QuizQuestion::where('quiz_id', $quiz->id)
+                                        ->selectRaw('quiz_id, COUNT(*) as count')
+                                        ->groupBy('quiz_id')
+                                        ->pluck('count', 'quiz_id');
+
+        // Transform data efficiently
+        $data = $question->map(function ($item) use ($quiz, $questionsData, $quizQuestionCounts) {
+            return (object) [ // Convert to an object
+                'quiz_title' => $quiz->title,
+                'question_count' => $quizQuestionCounts[$item->quiz_id] ?? 0,
+                'question' => $questionsData[$item->question_id] ?? 'Unknown',
+                'startingtime' => $quiz->startingtime,
+                'quiz_id' => $item->quiz_id,
+                'question_id' => $item->question_id,
+            ];
+        });        
+
+
+        // dd($data);
         return view('front.pages.quiz', compact('data'));
     }
 

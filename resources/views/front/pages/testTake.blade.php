@@ -1,6 +1,6 @@
 @extends('front/layout/layout')
 @section('content')
-{{-- @section('title',$section->title) --}}
+@section('title' ,$section->title ?? 'Test')
 
 <style>
     #questionTab:before {
@@ -208,19 +208,21 @@
                     </div>
                     <div class="card-body">
                         <div class="flex-container">
-                            @foreach ($questions as $item)
                             @php
-                            $attempted = App\Models\TestQuestion::where('question_id', $item->id)->where('test_take_id', $test_take_id)->first();
-
-                            $attempted_null_check = null;
-                            // if attempted->result exists
-                            if (isset($attempted->result)) {
-                            $attempted_null_check = true;
-                            }
+                            // Fetch all attempted questions for the given test_take_id in a single query
+                            $attemptedQuestions = App\Models\TestQuestion::where('test_take_id', $test_take_id)
+                                ->pluck('result', 'question_id')
+                                ->toArray();
                             @endphp
-                            <div class="{{ $loop->iteration == 1 ? 'switcher-active' : '' }} {{ $attempted_null_check ? 'attempted' : ''}}" data-value="{{$item->id}}" onclick="questionSwitcher({{$item->id}})">
-                                {{$loop->iteration}}
-                            </div>
+
+                            @foreach ($questions as $item)
+                                @php
+                                // Check if the question has been attempted by looking it up in the $attemptedQuestions array
+                                $attempted_null_check = isset($attemptedQuestions[$item->id]) && !is_null($attemptedQuestions[$item->id]);
+                                @endphp
+                                <div class="{{ $loop->iteration == 1 ? 'switcher-active' : '' }} {{ $attempted_null_check ? 'attempted' : ''}}" data-value="{{$item->id}}" onclick="questionSwitcher({{$item->id}})">
+                                    {{$loop->iteration}}
+                                </div>
                             @endforeach
                         </div>
                     </div>
