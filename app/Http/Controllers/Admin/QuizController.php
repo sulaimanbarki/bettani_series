@@ -42,43 +42,28 @@ class QuizController extends Controller
 
     public function switchQuestion(Request $request)
     {
-        $quiz_id = $request->quiz_id;
         $question_id = $request->question_id;
-        $active_switcher_id = $request->activeSwitcher;
-
-        // Fetch the necessary QuizQuestion entries in one query
-        $quiz_questions = QuizQuestion::where('quiz_id', $quiz_id)
-            ->whereIn('question_id', [$question_id, $active_switcher_id])
-            ->get()
-            ->keyBy('question_id'); // Store by question_id for easy access
-
-        // Get the requested question
-        $question = $quiz_questions[$question_id] ?? null;
-        $activeSwitcher = $quiz_questions[$active_switcher_id]->result ?? null;
-
-        if (!$question) {
-            return response()->json(['status' => 'error', 'message' => 'Question not found']);
-        }
-
-        // Fetch the next question
-        $next_question = Question::find($question_id);
+        $quiz_id = $request->quiz_id;
+        $question = QuizQuestion::where('quiz_id', $request->quiz_id)
+            ->where('question_id', $request->question_id)
+            ->first();
+        $activeSwitcher = QuizQuestion::where('quiz_id', $request->quiz_id)
+            ->where('question_id', $request->activeSwitcher)
+            ->first()->result;
+        $next_question = Question::where('id', $request->question_id)->first();
         if (!$next_question) {
             return response()->json(['status' => 'error', 'message' => 'No more questions']);
         }
-
-        // Get question answer and nth question count
-        $answer = $question->result;
-        $nth_question = QuizQuestion::where('quiz_id', $quiz_id)->where('id', '<', $question->id)->count() + 1;
-
-        return response()->json([
-            'question' => $next_question->description,
+        $data = [
+            'question' => Question::find($question_id)->description,
             'quiz_id' => $quiz_id,
             'question_id' => $question_id,
             'quiz_question_id' => $question->id,
-            'answer' => $answer,
-            'nth_question' => $nth_question,
+            'answer' => QuizQuestion::where('quiz_id', $quiz_id)->where('question_id', $question_id)->first()->result,
+            'nth_question' => QuizQuestion::where('quiz_id', $quiz_id)->where('id', '<', $question->id)->count() + 1,
             'activeSwitcher' => $activeSwitcher,
-        ]);
+        ];
+        return response()->json($data);
     }
     public function createQuiz(Request $request)
     {
@@ -86,39 +71,30 @@ class QuizController extends Controller
         $num_of_questions = $request->input('quiz_numbers');
         $unit_id = $request->input('unit_id');
         $section_id = $request->input('section_id');
-        $user_id = Auth::id(); // Store user_id to avoid multiple calls
+        // random questions where unit_id = $unit_id
+        if ($request->section_quiz) {
+            $units = Unit::where('section_id', $section_id)->get();
+            $questions = collect();
 
-        if ($section_quiz) {
-            // Get all units for the given section
-            $unit_ids = Unit::where('section_id', $section_id)->pluck('id');
-
-            // Fetch random questions from these units at once
-            $questions = Question::whereIn('unit_id', $unit_ids)
-                ->where('type', 'mcqs')
-                ->inRandomOrder()
-                ->take($num_of_questions)
-                ->get();
-
+            for ($i = 1; $i <= $num_of_questions; $i++) {
+                // select random unit from $units
+                $random_unit = $units->random();
+                $random_question = Question::where('unit_id', $random_unit->id)->where('type', 'mcqs')->inRandomOrder()->first();
+                $questions[] = $random_question;
+            }
             $unit_id = 0;
         } else {
-            // Fetch random questions from a specific unit
-            $questions = Question::where('unit_id', $unit_id)
-                ->where('type', 'mcqs')
-                ->inRandomOrder()
-                ->take($num_of_questions)
-                ->get();
+            $questions = Question::where('unit_id', $unit_id)->where('type', 'mcqs')->inRandomOrder()->take($num_of_questions)->get();
         }
-
         $questions_count = $questions->count();
         date_default_timezone_set('Asia/Karachi');
-
-        // Create Quiz
+        // dd($request->section_quiz);
         $quiz = Quiz::create([
-            'title' => $section_quiz ? 'Quiz from whole Units' : Unit::find($unit_id)?->title,
-            'user_id' => $user_id,
+            'title' => $request->section_quiz ? 'Quiz from whole Units' : Unit::find($unit_id)->title,
+            'user_id' => Auth::user()->id,
             'marks' => 0,
-            'startingtime' => now(),
-            'endingtime' => now()->addMinutes($questions_count),
+            'startingtime' => date('Y-m-d H:i:s'),
+            'endingtime' => date('Y-m-d H:i:s', strtotime('+' . $questions_count . ' minutes')),
             'type' => 2,
             'quiz_in_unit' => $unit_id,
             'quiz_in_section' => $section_quiz ? $section_id : 0,
@@ -126,29 +102,22 @@ class QuizController extends Controller
             'result' => 0,
         ]);
 
-        // Bulk Insert Quiz Questions (Avoid Looping Insert)
-        $quiz_questions = $questions->map(fn($q) => [
-            'quiz_id' => $quiz->id,
-            'question_id' => $q->id,
-            'result' => null,
-            'user_id' => $user_id,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ])->toArray();
-
-        QuizQuestion::insert($quiz_questions);
-
-        // Load related models in one go instead of querying multiple times
-        $data = QuizQuestion::where('quiz_id', $quiz->id)
-            ->with(['quiz:id,title,startingtime', 'question:id,description'])
-            ->get()
-            ->transform(fn($item) => [
-                'quiz_title' => $item->quiz->title,
-                'question_count' => count($quiz_questions),
-                'question' => $item->question->description,
-                'startingtime' => $item->quiz->startingtime,
+        foreach ($questions as $question) {
+            QuizQuestion::create([
+                'quiz_id' => $quiz->id,
+                'question_id' => $question->id,
+                'result' => null,
+                'user_id' => Auth::User()->id
             ]);
-
+        }
+        $question = QuizQuestion::where('quiz_id', $quiz->id)->get();
+        $data = $question->transform(function ($item, $key) {
+            $item->quiz_title = Quiz::where('id', $item->quiz_id)->first()->title;
+            $item->question_count = QuizQuestion::where('quiz_id', $item->quiz_id)->count();
+            $item->question = Question::find($item->question_id)->description;
+            $item->startingtime = Quiz::where('id', $item->quiz_id)->first()->startingtime;
+            return $item;
+        });
         return view('front.pages.quiz', compact('data'));
     }
 
