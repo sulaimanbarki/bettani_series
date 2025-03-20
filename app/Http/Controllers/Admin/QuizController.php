@@ -129,59 +129,67 @@ class QuizController extends Controller
         $answer = $request->input('answer');
         $type = $request->input('type');
 
+        // Update answer if provided
         if ($answer) {
-            QuizQuestion::where('quiz_id', $quiz_id)->where('question_id', $question_id)->update(['result' => $answer]);
+            QuizQuestion::where('quiz_id', $quiz_id)
+                ->where('question_id', $question_id)
+                ->update(['result' => $answer]);
         }
+
+        // Fetch the current quiz question only once
+        $question = QuizQuestion::where('quiz_id', $quiz_id)
+            ->where('question_id', $question_id)
+            ->first();
+
+        if (!$question) {
+            return response()->json(['status' => 'error', 'message' => 'Invalid question']);
+        }
+
+        // Determine the next or previous question
         if ($type == 'next') {
-            $question = QuizQuestion::where('quiz_id', $quiz_id)->where('question_id', $question_id)->first();
-            if ($question) {
-                $question_id = $question->question_id;
-            } else {
-                $question_id = 0;
-            }
-            $question = QuizQuestion::where('quiz_id', $quiz_id)->where('id', '>', $question->id)->first();
-            if ($question) {
-                $question_id = $question->question_id;
-            } else {
-                $question_id = 0;
-            }
-            // dd($question->id);
-        } else if ($type == 'prev') {
-            $question = QuizQuestion::where('quiz_id', $quiz_id)->where('question_id', $question_id)->first();
-            if ($question) {
-                $question_id = $question->question_id;
-            } else {
-                $question_id = 0;
-            }
-            $question = QuizQuestion::where('quiz_id', $quiz_id)->where('id', '<', $question->id)->orderBy('id', 'desc')->first();
-            if ($question) {
-                $question_id = $question->question_id;
-            } else {
-                $question_id = 0;
-            }
-        } else {
-            $question = QuizQuestion::where('quiz_id', $quiz_id)->where('question_id', $question_id)->first();
-            if ($question) {
-                $question_id = $question->question_id;
-            } else {
-                $question_id = 0;
-            }
+            $question = QuizQuestion::where('quiz_id', $quiz_id)
+                ->where('id', '>', $question->id)
+                ->orderBy('id')
+                ->first();
+        } elseif ($type == 'prev') {
+            $question = QuizQuestion::where('quiz_id', $quiz_id)
+                ->where('id', '<', $question->id)
+                ->orderBy('id', 'desc')
+                ->first();
         }
+
+        // If no next/prev question found, return error
+        if (!$question) {
+            return response()->json(['status' => 'error', 'message' => 'No more questions']);
+        }
+
+        $question_id = $question->question_id;
         $next_question = Question::find($question_id);
-        // dd($next_question);
+
         if (!$next_question) {
             return response()->json(['status' => 'error', 'message' => 'No more questions']);
         }
-        $data = [
-            'question' => Question::find($question_id)->description,
+
+        // Fetch answer and question count in a single query
+        $quiz_question_data = QuizQuestion::select('result')
+            ->where('quiz_id', $quiz_id)
+            ->where('question_id', $question_id)
+            ->first();
+
+        $nth_question = QuizQuestion::where('quiz_id', $quiz_id)
+            ->where('id', '<', $question->id)
+            ->count() + 1;
+
+        return response()->json([
+            'question' => $next_question->description,
             'quiz_id' => $quiz_id,
             'question_id' => $question_id,
             'quiz_question_id' => $question->id,
-            'answer' => QuizQuestion::where('quiz_id', $quiz_id)->where('question_id', $question_id)->first()->result,
-            'nth_question' => QuizQuestion::where('quiz_id', $quiz_id)->where('id', '<', $question->id)->count() + 1,
-        ];
-        return response()->json($data);
+            'answer' => $quiz_question_data->result ?? null,
+            'nth_question' => $nth_question,
+        ]);
     }
+
 
     // wrong_questions, a function that will return the wrong questions of the quiz
     public function wrong_questions(Request $request)
