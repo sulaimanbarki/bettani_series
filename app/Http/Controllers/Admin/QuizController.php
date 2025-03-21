@@ -102,28 +102,14 @@ class QuizController extends Controller
             'result' => 0,
         ]);
 
-        // foreach ($questions as $question) {
-        //     QuizQuestion::create([
-        //         'quiz_id' => $quiz->id,
-        //         'question_id' => $question->id,
-        //         'result' => null,
-        //         'user_id' => Auth::User()->id
-        //     ]);
-        // }
-
-        $quizQuestions = [];
         foreach ($questions as $question) {
-            $quizQuestions[] = [
+            QuizQuestion::create([
                 'quiz_id' => $quiz->id,
                 'question_id' => $question->id,
                 'result' => null,
-                'user_id' => Auth::id(),
-                'created_at' => now(),
-                'updated_at' => now()
-            ];
+                'user_id' => Auth::User()->id
+            ]);
         }
-
-        QuizQuestion::insert($quizQuestions);
         $question = QuizQuestion::where('quiz_id', $quiz->id)->get();
 
         // Fetch all required data in one query
@@ -131,9 +117,9 @@ class QuizController extends Controller
         $questionIds = $question->pluck('question_id');
         $questionsData = Question::whereIn('id', $questionIds)->pluck('description', 'id');
         $quizQuestionCounts = QuizQuestion::where('quiz_id', $quiz->id)
-            ->selectRaw('quiz_id, COUNT(*) as count')
-            ->groupBy('quiz_id')
-            ->pluck('count', 'quiz_id');
+                                        ->selectRaw('quiz_id, COUNT(*) as count')
+                                        ->groupBy('quiz_id')
+                                        ->pluck('count', 'quiz_id');
 
         // Transform data efficiently
         $data = $question->map(function ($item) use ($quiz, $questionsData, $quizQuestionCounts) {
@@ -145,7 +131,7 @@ class QuizController extends Controller
                 'quiz_id' => $item->quiz_id,
                 'question_id' => $item->question_id,
             ];
-        });
+        });        
 
 
         // dd($data);
