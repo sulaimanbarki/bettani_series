@@ -22,22 +22,49 @@ class QuizController extends Controller
     }
 
     // quiz_result
-    public function quiz_result(Request $request)
-    {
-        $quiz = Quiz::find($request->quiz_id);
-        $quiz_questions = QuizQuestion::where('quiz_id', $request->quiz_id)->get();
-        $correct_answers = 0;
-        foreach ($quiz_questions as $question) {
-            $qstn = Question::find($question->question_id);
-            if ($qstn->answer == $question->result) {
-                $correct_answers++;
-            }
-        }
-        $quiz->marks = $correct_answers;
-        $quiz->save();
+    // public function quiz_result(Request $request)
+    // {
+    //     $quiz = Quiz::find($request->quiz_id);
+    //     $quiz_questions = QuizQuestion::where('quiz_id', $request->quiz_id)->get();
+    //     $correct_answers = 0;
+    //     foreach ($quiz_questions as $question) {
+    //         $qstn = Question::find($question->question_id);
+    //         if ($qstn->answer == $question->result) {
+    //             $correct_answers++;
+    //         }
+    //     }
+    //     $quiz->marks = $correct_answers;
+    //     $quiz->save();
 
-        return view('front.pages.quiz_result', compact('quiz'));
+    //     return view('front.pages.quiz_result', compact('quiz'));
+    // }
+
+    public function quiz_result(Request $request)
+{
+    // Find the quiz
+    $quiz = Quiz::find($request->quiz_id);
+    if (!$quiz) {
+        return redirect()->back()->with('error', 'Quiz not found');
     }
+
+    // Fetch all quiz questions and their correct answers in a single query
+    $quiz_questions = QuizQuestion::where('quiz_id', $request->quiz_id)
+        ->join('questions', 'quiz_questions.question_id', '=', 'questions.id')
+        ->select('quiz_questions.result', 'questions.answer')
+        ->get();
+
+    // Calculate correct answers
+    $correct_answers = $quiz_questions->filter(function ($question) {
+        return $question->result !== null && $question->result === $question->answer;
+    })->count();
+
+    // Update quiz marks
+    $quiz->marks = $correct_answers;
+    $quiz->save();
+
+    // Return the result view
+    return view('front.pages.quiz_result', compact('quiz'));
+}
 
 
     public function switchQuestion(Request $request)
@@ -117,9 +144,9 @@ class QuizController extends Controller
         $questionIds = $question->pluck('question_id');
         $questionsData = Question::whereIn('id', $questionIds)->pluck('description', 'id');
         $quizQuestionCounts = QuizQuestion::where('quiz_id', $quiz->id)
-                                        ->selectRaw('quiz_id, COUNT(*) as count')
-                                        ->groupBy('quiz_id')
-                                        ->pluck('count', 'quiz_id');
+            ->selectRaw('quiz_id, COUNT(*) as count')
+            ->groupBy('quiz_id')
+            ->pluck('count', 'quiz_id');
 
         // Transform data efficiently
         $data = $question->map(function ($item) use ($quiz, $questionsData, $quizQuestionCounts) {
@@ -131,7 +158,7 @@ class QuizController extends Controller
                 'quiz_id' => $item->quiz_id,
                 'question_id' => $item->question_id,
             ];
-        });        
+        });
 
 
         // dd($data);
@@ -205,6 +232,26 @@ class QuizController extends Controller
             'answer' => $quiz_question_data->result ?? null,
             'nth_question' => $nth_question,
         ]);
+    }
+
+    public function bulk_update_quiz(Request $request)
+    {
+        $quiz_id = $request->input('quiz_id');
+        $attempted_answers = $request->input('attempted_answers'); // Array of { question_id => answer }
+
+        // Validate inputs
+        if (!$quiz_id || !$attempted_answers) {
+            return response()->json(['status' => 'error', 'message' => 'Invalid data']);
+        }
+
+        // Update all answers in the database
+        foreach ($attempted_answers as $question_id => $answer) {
+            QuizQuestion::where('quiz_id', $quiz_id)
+                ->where('question_id', $question_id)
+                ->update(['result' => $answer]);
+        }
+
+        return response()->json(['status' => 'success', 'message' => 'Quiz progress saved']);
     }
 
 

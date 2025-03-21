@@ -30,7 +30,7 @@
                     <div class="col-xl-12 col-lg-12 col-sm-12 pt-4 mx-auto">
                         <div class="card l-bg-blue-dark ">
                             <div class="card-statistic-3 p-4">
-                                <div class="card-icon card-icon-large"><i class="fas fa-users"></i>
+                                <div class="card-icon card-icon-large">
                                 </div>
                                 <div class="row">
                                     <div class="col">

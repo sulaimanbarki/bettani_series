@@ -279,6 +279,7 @@ Route::post('/fetchsections', 'App\Http\Controllers\Admin\SectionsController@fet
 Route::post('/copyUnit', 'App\Http\Controllers\Admin\SectionsController@copyUnitt');
 Route::post('/create-quiz', 'App\Http\Controllers\Admin\QuizController@createQuiz');
 Route::get('/get-quiz', 'App\Http\Controllers\Admin\QuizController@get_quiz');
+Route::post('/bulk_update_quiz', 'App\Http\Controllers\Admin\QuizController@bulk_update_quiz');
 Route::get('/switchQuestion', 'App\Http\Controllers\Admin\QuizController@switchQuestion');
 Route::post('/quiz-result', 'App\Http\Controllers\Admin\QuizController@quiz_result');
 Route::get('result/details/{id}', 'App\Http\Controllers\Admin\QuizController@resultDetails');

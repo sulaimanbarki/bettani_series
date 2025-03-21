@@ -17,73 +17,53 @@
                         <div class="border">
                             <div class="question bg-white p-3 border-bottom">
                                 <div class="d-flex flex-row justify-content-between align-items-center mcq">
-                                    <h4>{{ $first->quiz_title }}</h4><span>(<span id="nth-question">1</span> of
-                                        {{ $first->question_count }})</span>
-                                    {{-- input hidden with quiz_id --}}
+                                    <h4 id="quiz_title">{{ $first->quiz_title }}</h4>
+                                    <span>(<span id="nth-question">1</span> of {{ $first->question_count }})</span>
                                     <input type="hidden" id="quiz_id" name="quiz_id" value="{{ $first->quiz_id }}">
-                                    <input type="hidden" id="question_id" name="question_id"
-                                        value="{{ $first->question_id }}">
+                                    <input type="hidden" id="question_id" name="question_id" value="{{ $first->question_id }}">
                                 </div>
                             </div>
 
-                            <div id="loader" style="display: none; text-align: center; margin-top: 10px;">
-                                <i class="fa fa-spinner fa-spin fa-2x"></i>
-                            </div>
                             <div class="question bg-white p-3 border-bottom">
                                 <div class="d-flex flex-row align-items-center question-title">
                                     <h3 class="text-danger">Q.</h3>
                                     <h5 class="mt-1 ml-2 pt-3" id="question_question">{!! $first->question !!}</h5>
                                 </div>
-                                <div class="ans ml-2">
-                                    <label class="radio"> <input type="radio" name="answer" value="a">
-                                        <span>a</span>
-                                    </label>
-                                </div>
-                                <div class="ans ml-2">
-                                    <label class="radio"> <input type="radio" name="answer" value="b">
-                                        <span>b</span>
-                                    </label>
-                                </div>
-                                <div class="ans ml-2">
-                                    <label class="radio"> <input type="radio" name="answer" value="c">
-                                        <span>c</span>
-                                    </label>
-                                </div>
-                                <div class="ans ml-2">
-                                    <label class="radio"> <input type="radio" name="answer" value="d">
-                                        <span>d</span>
-                                    </label>
+                                <div class="ans ml-2" id="options_container">
+                                    <!-- Options will be populated dynamically -->
                                 </div>
                             </div>
                             <div class="d-flex flex-row justify-content-between align-items-center p-3 bg-white">
-                                <button class="btn btn-primary d-flex align-items-center btn-danger" type="submit"
-                                    data-type="prev"><i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;Previous</button>
-                                <button class="btn btn-primary d-flex align-items-center btn-danger" onclick="EndQuiz()"
-                                    type="submit">Finish<i class="fa fa-angle-right ml-2"></i></button>
-                                <button class="btn btn-primary border-success align-items-center btn-success"
-                                    data-type="next" type="submit">Next<i class="fa fa-angle-right ml-2"></i></button>
+                                <button class="btn btn-primary btn-sm d-flex align-items-center btn-danger" type="button" onclick="previousQuestion()">
+                                    <i class="fa fa-angle-left mt-1 mr-1"></i>&nbsp;Previous
+                                </button>
+                                <button class="btn btn-primary btn-sm d-flex align-items-center btn-danger" type="button" onclick="EndQuiz()">
+                                    Finish<i class="fa fa-angle-right ml-2"></i>
+                                </button>
+                                <button class="btn btn-primary btn-sm border-success align-items-center btn-success" type="button" onclick="nextQuestion()">
+                                    Next<i class="fa fa-angle-right ml-2"></i>
+                                </button>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="col-md-3 col-lg-3">
-                    {{-- question switcher --}}
+                    <!-- Question Switcher -->
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">Question Switcher</h5>
                         </div>
                         <div class="card-body">
-                            <div class="flex-container">
+                            <div class="flex-container" id="question_switcher">
                                 @foreach ($data as $item)
-                                    <div class="{{ $loop->iteration == 1 ? 'switcher-active' : '' }}"
-                                        data-value="{{ $item->question_id }}"
-                                        onclick="questionSwitcher({{ $item->question_id }})">
+                                    <div class="{{ $loop->iteration == 1 ? 'switcher-active' : '' }}" data-value="{{ $item->question_id }}" onclick="switchQuestion({{ $loop->index }})">
                                         {{ $loop->iteration }}
                                     </div>
                                 @endforeach
                             </div>
                         </div>
                     </div>
+                    <!-- Quiz Details -->
                     <div class="card mt-3">
                         <div class="card-header">
                             <h5 class="card-title">Quiz Details</h5>
@@ -100,37 +80,35 @@
                                         <th>{{ $first->question_count }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Starting time</th>
-                                        <th>{{ date('h:m:i a', strtotime($first->startingtime)) }}</th>
+                                        <th>Starting Time</th>
+                                        <th>{{ date('h:i:s a', strtotime($first->startingtime)) }}</th>
                                     </tr>
                                     <tr>
                                         <th>Starting Date</th>
                                         <th>{{ date('d/m/Y', strtotime($first->startingtime)) }}</th>
                                     </tr>
                                     <tr>
-                                        <th>Ends in</th>
+                                        <th>Ends In</th>
                                         <th id="endingTime">{{ $first->question_count }} minutes</th>
                                     </tr>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
-    {{-- are you shure to finish the quiz modal --}}
-    <div class="modal fade" id="areYouSureToFinishTheQuiz" tabindex="-1" role="dialog"
-        aria-labelledby="areYouSureToFinishTheQuizLabel" aria-hidden="true">
+
+    <!-- Finish Quiz Modal -->
+    <div class="modal fade" id="areYouSureToFinishTheQuiz" tabindex="-1" role="dialog" aria-labelledby="areYouSureToFinishTheQuizLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <form action="quiz-result" id="finishQuiz" method="POST">
                 @csrf
                 <input type="hidden" id="quiz_id" name="quiz_id" value="{{ $first->quiz_id }}">
                 <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
                 <input type="hidden" id="total_question" name="total_question" value="{{ $first->question_count }}">
-
+                <input type="hidden" id="attempted_answers" name="attempted_answers">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="areYouSureToFinishTheQuizLabel">Are you sure to finish the quiz?</h5>
@@ -139,7 +117,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Once you finish the quiz you can't go back to the quiz.</p>
+                        <p>Once you finish the quiz, you can't go back.</p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
@@ -149,204 +127,192 @@
             </form>
         </div>
     </div>
-
 @endsection
 
-@section('script')
-    <script>
-        // Span element that will hold the timer
-        const clock = document.getElementById("endingTime");
-        // Duration in minutes
-        const duration = {{ $first->question_count }};
-        var eventDuration;
+<script>
+    // Pass quiz data to JavaScript
+    const quizData = @json($data);
+    let currentQuestionIndex = 0;
+    let attemptedAnswers = {}; // Store all user's answers
+    let modifiedAnswers = {}; // Store only modified answers since the last save
+    const quizId = {{ $first->quiz_id }}; // Quiz ID from the backend
+    const autoSaveInterval = 30000; // Auto-save every 30 seconds
+    const quizDuration = {{ $first->question_count }} * 60; // Quiz duration in seconds
+    let timerInterval;
 
-        function resetStartTime() {
-            const startTime = Date.now();
-            const eventTime = duration * 60 * 1000;
-            eventDuration = new Date(startTime + eventTime);
-            console.log(startTime, );
-            return eventDuration;
+    // Load the first question on page load
+    document.addEventListener("DOMContentLoaded", () => {
+        loadQuestion(currentQuestionIndex);
+        startAutoSave(); // Start the auto-save timer
+        startTimer(quizDuration); // Start the countdown timer
+    });
+
+    // Function to load a question
+    function loadQuestion(index) {
+        const question = quizData[index];
+        document.getElementById('question_question').innerHTML = question.question;
+        document.getElementById('nth-question').innerText = index + 1;
+        document.getElementById('question_id').value = question.question_id;
+
+        // Populate options (static for now)
+        const optionsContainer = document.getElementById('options_container');
+        optionsContainer.innerHTML = `
+            <div class="ans ml-2">
+                <label class="radio">
+                    <input type="radio" name="answer" value="a" ${attemptedAnswers[question.question_id] === 'a' ? 'checked' : ''}>
+                    <span>a. Option A</span>
+                </label>
+            </div>
+            <div class="ans ml-2">
+                <label class="radio">
+                    <input type="radio" name="answer" value="b" ${attemptedAnswers[question.question_id] === 'b' ? 'checked' : ''}>
+                    <span>b. Option B</span>
+                </label>
+            </div>
+            <div class="ans ml-2">
+                <label class="radio">
+                    <input type="radio" name="answer" value="c" ${attemptedAnswers[question.question_id] === 'c' ? 'checked' : ''}>
+                    <span>c. Option C</span>
+                </label>
+            </div>
+            <div class="ans ml-2">
+                <label class="radio">
+                    <input type="radio" name="answer" value="d" ${attemptedAnswers[question.question_id] === 'd' ? 'checked' : ''}>
+                    <span>d. Option D</span>
+                </label>
+            </div>
+        `;
+
+        // Update question switcher
+        updateQuestionSwitcher(index);
+    }
+
+    // Function to save the selected answer
+    function saveAnswer() {
+        const questionId = quizData[currentQuestionIndex].question_id;
+        const selectedAnswer = document.querySelector('input[name="answer"]:checked')?.value;
+        if (selectedAnswer) {
+            // Check if the answer is different from the previously saved answer
+            if (attemptedAnswers[questionId] !== selectedAnswer) {
+                attemptedAnswers[questionId] = selectedAnswer;
+                modifiedAnswers[questionId] = selectedAnswer; // Track modified answers
+            }
         }
+        // Update the Question Switcher UI
+        updateQuestionSwitcher(currentQuestionIndex);
+    }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const startTime = new Date(resetStartTime());
-            timeInterval = setInterval(() => {
-                const timer = startTime.getTime() - Date.now();
-                const minutes = Math.floor((timer % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((timer % (1000 * 60)) / 1000);
+    // Next question
+    function nextQuestion() {
+        saveAnswer();
+        if (currentQuestionIndex < quizData.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion(currentQuestionIndex);
+        }
+    }
 
-                clock.innerText = minutes + " Minutes, " + seconds + " Seconds ";
+    // Previous question
+    function previousQuestion() {
+        saveAnswer();
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            loadQuestion(currentQuestionIndex);
+        }
+    }
 
-                if (timer <= 0) {
-                    clock.innerText = "EXPIRED";
-                    clearInterval(timeInterval);
-                    finishQuiz();
-                }
-            }, 1000);
+    // Switch to a specific question
+    function switchQuestion(index) {
+        saveAnswer();
+        currentQuestionIndex = index;
+        loadQuestion(currentQuestionIndex);
+    }
+
+    // Update question switcher UI
+    function updateQuestionSwitcher(index) {
+        const switchers = document.querySelectorAll('#question_switcher div');
+        switchers.forEach((switcher, i) => {
+            const questionId = quizData[i].question_id;
+            if (i === index) {
+                switcher.classList.add('switcher-active'); // Highlight current question
+            } else {
+                switcher.classList.remove('switcher-active');
+            }
+            // Add 'attempted' class if the question has been answered
+            if (attemptedAnswers[questionId]) {
+                switcher.classList.add('attempted');
+            } else {
+                switcher.classList.remove('attempted');
+            }
         });
-    </script>
-    <script>
-        // EndQuiz
+    }
 
-        function EndQuiz() {
-            $('#areYouSureToFinishTheQuiz').modal('show');
-        }
+    // Start auto-save timer
+    function startAutoSave() {
+        setInterval(() => {
+            if (Object.keys(attemptedAnswers).length > 0) {
+                saveQuizProgress();
+            }
+        }, autoSaveInterval);
+    }
 
-        // finishQuiz
-        function finishQuiz() {
-            $('#areYouSureToFinishTheQuiz').modal('hide');
-            $('#finishQuiz').submit();
-        }
-
-        function questionSwitcher(id) {
-            var quiz_id = $('#quiz_id').val();
-            // find the active switcher data-value
-            var activeSwitcherValue = $('.switcher-active').attr('data-value');
-            let activeSwitcher = $('.switcher-active');
-
-
-            // Show Loader & Disable Navigation Buttons
-            $('#loader').show();
-            $('button[data-type="next"], button[data-type="prev"]').prop('disabled', true);
-
+    // Save quiz progress to the backend
+    function saveQuizProgress() {
+        if (Object.keys(modifiedAnswers).length > 0) {
             $.ajax({
-                url: "/switchQuestion",
-                type: "json",
-                method: "GET",
+                url: '/bulk_update_quiz', // Endpoint for bulk update
+                method: 'POST',
                 data: {
-                    "question_id": id,
-                    "quiz_id": quiz_id,
-                    "activeSwitcher": activeSwitcherValue
+                    quiz_id: quizId,
+                    attempted_answers: modifiedAnswers, // Send only modified answers
+                    _token: '{{ csrf_token() }}' // CSRF token for Laravel
                 },
                 success: function(response) {
-                    if (response.status == 'error') {
-                        // open finish quiz modal
-                        $('#areYouSureToFinishTheQuiz').modal('show');
-                        return;
-                    }
-                    // if respose.activeSwitcher is not null
-                    if (response.activeSwitcher) {
-                        // remove active class from active switcher
-                        activeSwitcher.removeClass('switcher-active');
-                        // add active class to the switcher with data-value = response.activeSwitcher
-                        activeSwitcher.addClass('attempted');
-                    }
-                    // add switcher-active class to the current element
-                    $(`[data-value=${id}]`).addClass('switcher-active');
-                    activeSwitcher.removeClass('switcher-active');
-                    $('#question_question').html(response.question);
-                    $('#question_id').val(response.question_id);
-                    $('input[name="answer"]').prop('checked', false);
-                    $('#nth-question').html(response.nth_question);
-                    if (response.answer != null) {
-                        $('input[name="answer"][value="' + response.answer + '"]').prop('checked', true);
-                    }
-                }
-            });
-        }
-        // on quiz_form submit
-        $('#quiz_form').on('submit', function(e) {
-            e.preventDefault();
-            var type = e.originalEvent.submitter.dataset.type;
-            var form = $(this);
-            let quiz_id = $('#quiz_id').val();
-            let question_id = $('#question_id').val();
-            let answer = $('input[name="answer"]:checked').val();
-            $.ajax({
-                url: '/get-quiz',
-                method: 'GET',
-                type: 'json',
-                data: {
-                    type: type,
-                    quiz_id: quiz_id,
-                    question_id: question_id,
-                    answer: answer
-                },
-                success: function(response) {
-                    if (response.status == 'error') {
-                        if (type == 'prev')
-                            return;
-                        $('#areYouSureToFinishTheQuiz').modal('show');
-                        return;
-                    }
-                    questionSwitcher(response.question_id);
-                    $('#question_question').html(response.question);
-                    $('#question_id').val(response.question_id);
-                    $('input[name="answer"]').prop('checked', false);
-                    $('#nth-question').html(response.nth_question);
-                    if (response.answer != null) {
-                        $('input[name="answer"][value="' + response.answer + '"]').prop('checked',
-                            true);
-                    }
+                    console.log("Auto-save successful:", response);
+                    modifiedAnswers = {}; // Clear modified answers after successful save
                 },
                 error: function(error) {
-                    console.log(error);
-                },
-                complete: function() {
-                    // Hide Loader & Enable Navigation Buttons
-                    $('#loader').hide();
-                    $('button[data-type="next"], button[data-type="prev"]').prop('disabled', false);
+                    console.error("Auto-save failed:", error);
                 }
             });
-        });
-
-        function createQuiz(section_id) {
-            // open modal
-            $('#exampleModal').modal('show');
         }
-        $(document).ready(function() {
-            var appUrl = $("meta[name=base_url]").attr("content");
-            $(".collapsebtn").click(function() {
-                $(".collapse").removeClass("show");
-            });
+    }
 
-            $(".form").submit(function(event) {
-                var question_id = $(this).attr('data-id');
+    // Start the countdown timer
+    function startTimer(duration) {
+        const timerDisplay = document.getElementById('endingTime');
+        let timer = duration;
+        timerInterval = setInterval(() => {
+            const minutes = Math.floor(timer / 60);
+            const seconds = timer % 60;
+            timerDisplay.innerText = `${minutes} Minutes, ${seconds} Seconds`;
 
+            if (--timer < 0) {
+                clearInterval(timerInterval);
+                timerDisplay.innerText = "EXPIRED";
+                finishQuiz(); // Submit the quiz when time expires
+            }
+        }, 1000);
+    }
 
-                var formData = new FormData(this);
-                var this_ = this;
-                var comment = $("textarea[name='comment']", this).val();
+    // Finish quiz
+    function EndQuiz() {
+        saveAnswer();
+        $('#areYouSureToFinishTheQuiz').modal('show');
+    }
 
-                event.preventDefault();
+    // Submit quiz
+    function finishQuiz() {
+        clearInterval(timerInterval); // Stop the timer
 
-                $.ajax({
-                    url: appUrl + '/commentpost',
-                    type: 'POST',
-                    data: formData,
-                    async: false,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function(data) {
-                        console.log(data);
-                        if (data.response === "success") {
+        // Save any remaining modified answers
+        if (Object.keys(modifiedAnswers).length > 0) {
+            saveQuizProgress();
+        }
 
-                            $("textarea[name='comment']", this_).val('');
-                            var variable = '' +
-                                '    <article class="comment">' +
-                                '                                            <a class="comment-img" href="#non">' +
-                                '                                                <img src="' +
-                                appUrl + '/images/user.png" alt="" width="50" height="50">' +
-                                '                                            </a>' +
-                                '                                            <div class="comment-body">' +
-                                '                                                <div class="text">' +
-                                '                                                    <p>' +
-                                comment + '</p>' +
-                                '                                                </div>' +
-                                '                                                <p class="attribution">by <a href="#">You</a> at {{ date('Y-m-d h:i:sa') }}</p>' +
-                                '                                            </div>' +
-                                '                                        </article>' +
-                                '';
-                            document.getElementById('comment_' + question_id).insertRow(-1)
-                                .innerHTML = '<td>' + variable + ' </td>';
-                        }
+        // Add all attempted answers to the form
+        document.getElementById('attempted_answers').value = JSON.stringify(attemptedAnswers);
 
-                    }
-                });
-            });
-
-
-        });
-    </script>
-@stop
+        // Submit the form
+        document.getElementById('finishQuiz').submit();
+    }
+</script>
