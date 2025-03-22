@@ -139,7 +139,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="col-lg-8  p-2" style="border:1px solid #cccccc;  border-radius: 15px;">
+            <div class="col-12 col-sm-10 col-md-8 col-lg-8 p-2" style="border:1px solid #cccccc;  border-radius: 15px;">
                 <div class="card">
                     <div class="card-header text-center">
                         <b>Contents</b>
@@ -268,7 +268,7 @@
 
 
             <!-- right section  -->
-            <div class="col-lg-4 p-2" style="border:1px solid #cccccc;  border-radius: 15px;">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-4 p-2" style="border:1px solid #cccccc;  border-radius: 15px;">
                 <div class="card">
                     <div class="card-header text-center">
                         <b>Contents Details</b>
@@ -286,19 +286,19 @@
                             <a class="text-uppercase text-dark h-dark font-weight-medium mr-auto " href="{{url('section-details',$section->slug)}}?unit={{$u->id}}">
                                 {{$key+1}}. {{$u->title}}
                             </a>
+                            @if ($u->mcqs)
+                            @if (Auth::user())
+                            <button onclick="createQuiz({{$u->id}})" class="btn btn-success btn-sum btn-block text-left p-1 mt-2">Create Quiz in this Unit</button>
+                            @else
+                            <a href="{{url('login')}}" class="btn btn-success btn-sum btn-block text-left p-1 mt-2">Login to take Quiz</a>
+                            @endif
+                            @endif
                         </div>
-                        @if ($u->mcqs)
-                        @if (Auth::user())
-                        <button onclick="createQuiz({{$u->id}})" class="btn btn-success btn-sum p-0 text-left">Create Quiz</button>
-                        @else
-                        <a href="{{url('login')}}" class="btn btn-success btn-sum p-0 text-left">Login to take Quiz</a>
-                        @endif
-                        @endif
 
                     </div>
                     @endforeach
                     @if (Auth::user())
-                    <button onclick="createQuiz('s')" class="btn btn-warning btn-block mt-5 p-0 text-left">Create Quiz in Whole Unit</button>
+                    <button onclick="createQuiz('s')" class="btn btn-warning btn-block my-1 px-3 p-1 text-left">Create Quiz in Whole Unit</button>
                     @endif
                     <script type="text/javascript">
                     	atOptions = {

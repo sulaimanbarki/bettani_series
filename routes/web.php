@@ -447,6 +447,7 @@ Route::post('/testapplies/checkUserCredentials', 'App\Http\Controllers\Admin\Tes
 Route::post('/test-take', 'App\Http\Controllers\Admin\TestApplyController@test_take')->name('test-take.submit');
 
 Route::get('/get-question', 'App\Http\Controllers\Admin\TestQuestionController@get_question');
+Route::post('/bulk_update_test', 'App\Http\Controllers\Admin\TestQuestionController@bulk_update_test');
 Route::get('/switchTestQuestion', 'App\Http\Controllers\Admin\TestQuestionController@switchQuestion');
 Route::post('/test-result', 'App\Http\Controllers\Admin\TestQuestionController@test_result')->name('test-result.submit');
 Route::get('test-result/details/{id}', 'App\Http\Controllers\Admin\TestQuestionController@resultDetails');

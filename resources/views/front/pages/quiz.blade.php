@@ -160,25 +160,25 @@
             <div class="ans ml-2">
                 <label class="radio">
                     <input type="radio" name="answer" value="a" ${attemptedAnswers[question.question_id] === 'a' ? 'checked' : ''}>
-                    <span>a. Option A</span>
+                    <span>a</span>
                 </label>
             </div>
             <div class="ans ml-2">
                 <label class="radio">
                     <input type="radio" name="answer" value="b" ${attemptedAnswers[question.question_id] === 'b' ? 'checked' : ''}>
-                    <span>b. Option B</span>
+                    <span>b</span>
                 </label>
             </div>
             <div class="ans ml-2">
                 <label class="radio">
                     <input type="radio" name="answer" value="c" ${attemptedAnswers[question.question_id] === 'c' ? 'checked' : ''}>
-                    <span>c. Option C</span>
+                    <span>c</span>
                 </label>
             </div>
             <div class="ans ml-2">
                 <label class="radio">
                     <input type="radio" name="answer" value="d" ${attemptedAnswers[question.question_id] === 'd' ? 'checked' : ''}>
-                    <span>d. Option D</span>
+                    <span>d</span>
                 </label>
             </div>
         `;

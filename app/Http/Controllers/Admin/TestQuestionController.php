@@ -54,7 +54,7 @@ class TestQuestionController extends Controller
         $correct_answers = 0;
         foreach ($test_questions as $question) {
             $qstn = Question::find($question->question_id);
-            if ($qstn){
+            if ($qstn) {
                 if ($qstn->answer == $question->result) {
                     $correct_answers++;
                 }
@@ -183,7 +183,7 @@ class TestQuestionController extends Controller
         ];
         return response()->json($data);
     }
-    
+
     // old switcher
     // public function switchQuestion(Request $request)
     // {
@@ -274,7 +274,7 @@ class TestQuestionController extends Controller
         });
         return view('front.pages.quiz', compact('data'));
     }
-    
+
     public function get_question(Request $request)
     {
         $test_id = $request->input('test_id');
@@ -343,7 +343,30 @@ class TestQuestionController extends Controller
         ];
         return response()->json($data);
     }
-    
+
+    public function bulk_update_test(Request $request)
+    {
+        $test_id = $request->input('test_id');
+        $test_take_id = $request->input('test_take_id');
+        $attempted_answers = $request->input('attempted_answers'); // Array of { question_id => answer }
+
+        // Validate inputs
+        if (!$test_id || !$test_take_id || !$attempted_answers) {
+            return response()->json(['status' => 'error', 'message' => 'Invalid data']);
+        }
+
+        // Use a query builder for the TestQuestion model
+        $test_query = TestQuestion::query();
+        $test_query->where('test_id', $test_id)->where('test_take_id', $test_take_id);
+
+        // Update all answers in the database
+        foreach ($attempted_answers as $question_id => $answer) {
+            $test_query->clone()->where('question_id', $question_id)->update(['result' => $answer]);
+        }
+
+        return response()->json(['status' => 'success', 'message' => 'Test progress saved']);
+    }
+
     // old
     // public function get_question(Request $request)
     // {
@@ -418,12 +441,12 @@ class TestQuestionController extends Controller
         $data = $questions->transform(function ($item, $key) use ($request) {
             $question = Question::find($item->question_id);
 
-            if ($question){
+            if ($question) {
                 $item->question = $question->description;
                 $item->result = $question->answer;
-    
+
                 $test_item_result = TestQuestion::where('test_id', $item->test_id)->where('question_id', $item->question_id)->where('test_take_id', $request->test_take_id)->first()->result;
-    
+
                 if ($item->result != $test_item_result) {
                     return $item;
                 }

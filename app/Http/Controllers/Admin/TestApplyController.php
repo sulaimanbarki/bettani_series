@@ -325,7 +325,7 @@ class TestApplyController extends Controller
                 $question = Question::where('id', $question)->first();
 
                 $test = Test::find($test_id);
-                $test_take_id = $test_take->id;
+                $test_take_id = $test_take->id; 
 
                 return view('front.pages.testTake', compact('question', 'test', 'questions', 'test_take_id', 'test_take'));
             } else {
