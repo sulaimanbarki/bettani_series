@@ -369,13 +369,11 @@
                 "unit_id": unit_id
             },
             success: function(data) {
-                data = jQuery.parseJSON(data);
-
-                // if data is empty then return
-                if (data.mcqs == 0) {
+                if (data.length == 0) {
                     alert('No questions found');
                     return;
                 }
+                data.mcqs = parseInt(data.mcqs);
                 
                 if (data.mcqs == 10) {
                     $("#quiz_type").html('<option value="10">10</option>');

@@ -277,7 +277,7 @@ class QuizController extends Controller
     public function get_mcqs(Request $request)
     {
         $unit_id = $request->input('unit_id');
-        $mcqs = Unit::where('id', $unit_id)->first()->mcqs;
+        $mcqs = Unit::where('id', $unit_id)->first()->mcqs ?? 0;
         return response()->json(['mcqs' => $mcqs]);
     }
 }
