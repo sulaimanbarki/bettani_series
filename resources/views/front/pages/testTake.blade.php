@@ -115,7 +115,6 @@
         <form action="test-result" id="finishQuiz" method="POST">
             @csrf
             <input type="hidden" id="test_id" name="test_id" value="{{ $test->id }}">
-            <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
             <input type="hidden" id="test_take_id" name="test_take_id" value="{{ $test_take->id }}">
             <input type="hidden" id="total_question" name="total_question" value="{{ count($questions) }}">
             <input type="hidden" id="attempted_answers" name="attempted_answers">
