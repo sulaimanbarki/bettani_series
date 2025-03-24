@@ -29,42 +29,50 @@
                 @if (count($upcoming) > 0)
                     <div class="table-responsive">
                         <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="width: 30%">Test Name</th>
-                                <th>Test Date</th>
-                                {{-- <th>Test Time</th> --}}
-                                <th class="announced-col">Announced</th>
-                                <th>Last</th>
-                                {{-- <th>Test Fee</th> --}}
-                                <th>Apply</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($upcoming as $test)
+                            <thead>
                                 <tr>
-                                    <td>{{ $test->title }}</td>
-                                    <td>{{ date('d/m/Y h:i A', strtotime($test->date)) }}</td>
-                                    <td class="announced-col">{{ date('d/m/Y', strtotime($test->announce_date)) }}</td>
-                                    <td>{{ date('d/m/Y', strtotime($test->last_date)) }}</td>
-                                    <td>
-                                        @if (date('Y-m-d', strtotime($test->date)) == date('Y-m-d'))
-                                            <button href="#"
-                                                class="btn btn-primary btn-sm border border-light {{ $test->enabled ? 'btn-success' : 'btn-secondary' }}"
-                                                onclick="testStart({{ $test->id }})"
-                                                @if (!$test->enabled) disabled @endif>Start Test</button>
-                                        @else
-                                            <button class="btn btn-primary btn-sm border border-light"
-                                                onclick="testApplyModal({{ $test->id }}, {{ $test->ispaid }})">Apply</button>
-                                        @endif
-
-                                        <button class="btn btn-primary btn-sm border border-light"
-                                            onclick="printSlipModal({{ $test->id }})">Download Slip</button>
-                                    </td>
+                                    <th style="width: 30%">Test Name</th>
+                                    <th>Test Date</th>
+                                    {{-- <th>Test Time</th> --}}
+                                    <th class="announced-col">Announced</th>
+                                    <th>Last</th>
+                                    {{-- <th>Test Fee</th> --}}
+                                    <th>Apply</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($upcoming as $test)
+                                    <tr>
+                                        <td>{{ $test->title }}</td>
+                                        <td>{{ date('d/m/Y h:i A', strtotime($test->date)) }}</td>
+                                        <td class="announced-col">{{ date('d/m/Y', strtotime($test->announce_date)) }}
+                                        </td>
+                                        <td>{{ date('d/m/Y', strtotime($test->last_date)) }}</td>
+                                        <td>
+                                            @if (date('Y-m-d', strtotime($test->date)) == date('Y-m-d'))
+                                                @if (Auth::check())
+                                                    <button href="#"
+                                                        class="btn btn-primary btn-sm border border-light {{ $test->enabled ? 'btn-success' : 'btn-secondary' }}"
+                                                        onclick="testStart({{ $test->id }})"
+                                                        @if (!$test->enabled) disabled @endif>Start
+                                                        Test</button>
+                                                @else
+                                                    <a href="{{ route('login') }}"
+                                                        class="btn btn-primary btn-sm border border-light">Login to
+                                                        Start Test</a>
+                                                @endif
+                                            @else
+                                                <button class="btn btn-primary btn-sm border border-light"
+                                                    onclick="testApplyModal({{ $test->id }}, {{ $test->ispaid }})">Apply</button>
+                                            @endif
+
+                                            <button class="btn btn-primary btn-sm border border-light"
+                                                onclick="printSlipModal({{ $test->id }})">Download Slip</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 @else
                     <div class="alert alert-info">
@@ -73,58 +81,59 @@
 
                 @endif
             </div>
-            
+
             <script type="text/javascript">
-            	atOptions = {
-            		'key' : '8289a9236ddcfa77abaf7c470e453b65',
-            		'format' : 'iframe',
-            		'height' : 60,
-            		'width' : 468,
-            		'params' : {}
-            	};
-            	document.write('');
+                atOptions = {
+                    'key': '8289a9236ddcfa77abaf7c470e453b65',
+                    'format': 'iframe',
+                    'height': 60,
+                    'width': 468,
+                    'params': {}
+                };
+                document.write('');
             </script>
-            
+
             <div class="col-md-12">
                 <h4>Previous Tests</h4>
                 @if (count($done) > 0)
                     <div class="table-responsive">
                         <table class="table">
-                        <thead>
-                            <tr>
-                                <th style="width: 30%">Test Name</th>
-                                <th>Test Date</th>
-                                {{-- <th>Test Time</th> --}}
-                                <th class="announced-col">Announced</th>
-                                <th>Last</th>
-                                {{-- <th>Test Fee</th> --}}
-                                <th>Result</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($done as $test)
+                            <thead>
                                 <tr>
-                                    <td>{{ $test->title }}</td>
-                                    <td>{{ date('d/m/Y h:i A', strtotime($test->date)) }}</td>
-                                    <td class="announced-col">{{ date('d/m/Y', strtotime($test->announce_date)) }}</td>
-                                    <td>{{ date('d/m/Y', strtotime($test->last_date)) }}</td>
-                                    {{-- <td>{{$test->test_status}}</td> --}}
-                                    <td>
-                                        @if ($test->individual_result)
-                                            <button href="test-result/details/{{ base64_encode($test->id) }}"
-                                                onclick="launch_result_modal('{{ $test->id }}')"
-                                                class="btn btn-primary btn-sm mt-1">Result</button>
-                                        @endif
-
-                                        @if ($test->overall_result)
-                                            <a href="test-result/overall/{{ base64_encode($test->id) }}"
-                                                class="btn btn-primary btn-sm mt-1">Overall Result</a>
-                                        @endif
-                                    </td>
+                                    <th style="width: 30%">Test Name</th>
+                                    <th>Test Date</th>
+                                    {{-- <th>Test Time</th> --}}
+                                    <th class="announced-col">Announced</th>
+                                    <th>Last</th>
+                                    {{-- <th>Test Fee</th> --}}
+                                    <th>Result</th>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($done as $test)
+                                    <tr>
+                                        <td>{{ $test->title }}</td>
+                                        <td>{{ date('d/m/Y h:i A', strtotime($test->date)) }}</td>
+                                        <td class="announced-col">{{ date('d/m/Y', strtotime($test->announce_date)) }}
+                                        </td>
+                                        <td>{{ date('d/m/Y', strtotime($test->last_date)) }}</td>
+                                        {{-- <td>{{$test->test_status}}</td> --}}
+                                        <td>
+                                            @if ($test->individual_result)
+                                                <button href="test-result/details/{{ base64_encode($test->id) }}"
+                                                    onclick="launch_result_modal('{{ $test->id }}')"
+                                                    class="btn btn-primary btn-sm mt-1">Result</button>
+                                            @endif
+
+                                            @if ($test->overall_result)
+                                                <a href="test-result/overall/{{ base64_encode($test->id) }}"
+                                                    class="btn btn-primary btn-sm mt-1">Overall Result</a>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 @else
                     <div class="alert alert-info">
