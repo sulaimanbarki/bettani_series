@@ -1,13 +1,13 @@
 <?php return array (
   'akcybex/laravel-jazzcash' => 
   array (
-    'providers' => 
-    array (
-      0 => 'AKCybex\\JazzCash\\AKJazzCashServiceProvider',
-    ),
     'aliases' => 
     array (
       'JazzCash' => 'AKCybex\\JazzCash\\Facades\\JazzCash',
+    ),
+    'providers' => 
+    array (
+      0 => 'AKCybex\\JazzCash\\AKJazzCashServiceProvider',
     ),
   ),
   'brackets/admin-auth' => 
@@ -82,13 +82,13 @@
   ),
   'facade/ignition' => 
   array (
-    'providers' => 
-    array (
-      0 => 'Facade\\Ignition\\IgnitionServiceProvider',
-    ),
     'aliases' => 
     array (
       'Flare' => 'Facade\\Ignition\\Facades\\Flare',
+    ),
+    'providers' => 
+    array (
+      0 => 'Facade\\Ignition\\IgnitionServiceProvider',
     ),
   ),
   'fruitcake/laravel-cors' => 
@@ -100,35 +100,35 @@
   ),
   'intervention/image' => 
   array (
-    'providers' => 
-    array (
-      0 => 'Intervention\\Image\\ImageServiceProvider',
-    ),
     'aliases' => 
     array (
       'Image' => 'Intervention\\Image\\Facades\\Image',
     ),
+    'providers' => 
+    array (
+      0 => 'Intervention\\Image\\ImageServiceProvider',
+    ),
   ),
   'jenssegers/agent' => 
   array (
-    'providers' => 
-    array (
-      0 => 'Jenssegers\\Agent\\AgentServiceProvider',
-    ),
     'aliases' => 
     array (
       'Agent' => 'Jenssegers\\Agent\\Facades\\Agent',
     ),
+    'providers' => 
+    array (
+      0 => 'Jenssegers\\Agent\\AgentServiceProvider',
+    ),
   ),
   'jorenvanhocht/laravel-share' => 
   array (
-    'providers' => 
-    array (
-      0 => 'Jorenvh\\Share\\Providers\\ShareServiceProvider',
-    ),
     'aliases' => 
     array (
       'Share' => 'Jorenvh\\Share\\ShareFacade',
+    ),
+    'providers' => 
+    array (
+      0 => 'Jorenvh\\Share\\Providers\\ShareServiceProvider',
     ),
   ),
   'laravel/legacy-factories' => 
@@ -168,13 +168,13 @@
   ),
   'maatwebsite/excel' => 
   array (
-    'providers' => 
-    array (
-      0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
-    ),
     'aliases' => 
     array (
       'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
+    ),
+    'providers' => 
+    array (
+      0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     ),
   ),
   'nesbot/carbon' => 
@@ -193,24 +193,24 @@
   ),
   'realrashid/sweet-alert' => 
   array (
-    'providers' => 
-    array (
-      0 => 'RealRashid\\SweetAlert\\SweetAlertServiceProvider',
-    ),
     'aliases' => 
     array (
       'Alert' => 'RealRashid\\SweetAlert\\Facades\\Alert',
     ),
+    'providers' => 
+    array (
+      0 => 'RealRashid\\SweetAlert\\SweetAlertServiceProvider',
+    ),
   ),
   'shetabit/visitor' => 
   array (
-    'providers' => 
-    array (
-      0 => 'Shetabit\\Visitor\\Provider\\VisitorServiceProvider',
-    ),
     'aliases' => 
     array (
       'Visitor' => 'Shetabit\\Visitor\\Facade\\Visitor',
+    ),
+    'providers' => 
+    array (
+      0 => 'Shetabit\\Visitor\\Provider\\VisitorServiceProvider',
     ),
   ),
   'spatie/laravel-backup' => 
