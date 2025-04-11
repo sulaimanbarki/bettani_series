@@ -30,6 +30,8 @@ class Test extends Model
         'test_duration',
         'is_finished',
         'is_hidden',
+        'negative_marking',
+        'negative_marking_value',
     ];
 
 

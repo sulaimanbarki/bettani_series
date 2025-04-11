@@ -179,6 +179,20 @@
     </div>
 </div>
 
+{{-- negative marking --}}
+<div class="form-check row"
+    :class="{ 'has-danger': errors.has('negative_marking'), 'has-success': fields.negative_marking && fields.negative_marking.valid }">
+    <div class="ml-md-auto" :class="isFormLocalized ? 'col-md-8' : 'col-md-10'">
+        <input class="form-check-input" id="negative_marking" type="checkbox" v-model="form.negative_marking" v-validate="''"
+            data-vv-name="negative_marking" name="negative_marking">
+        <label class="form-check-label" for="negative_marking">
+            Negative marking
+        </label>
+        <input type="hidden" name="negative_marking" :value="form.negative_marking">
+        <div v-if="errors.has('negative_marking')" class="form-control-feedback form-text" v-cloak>@{{ errors.first('negative_marking') }}</div>
+    </div>
+</div>
+
 {{-- test_duration in number of minutes --}}
 <div class="form-group row align-items-center"
     :class="{ 'has-danger': errors.has('test_duration'), 'has-success': fields.test_duration && fields.test_duration.valid }">

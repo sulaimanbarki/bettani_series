@@ -45,7 +45,8 @@ class UpdateTest extends FormRequest
             'test_duration' => ['sometimes', 'integer'],
             'is_finished' => ['nullable', 'boolean'],
             'is_hidden' => ['nullable', 'boolean'],
-
+            'negative_marking' => ['nullable', 'boolean'],
+            'negative_marking_value' => ['nullable', 'numeric'],
         ];
     }
 
