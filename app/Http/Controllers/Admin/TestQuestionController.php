@@ -50,17 +50,34 @@ class TestQuestionController extends Controller
         $user = User::where('cnic', $request->cnic)->first();
         $oldTest = Test::find($test->test_id);
 
-        $test_questions = TestQuestion::where('test_id', $request->test_id)->where('test_take_id', $request->test_take_id)->get();
-        $correct_answers = 0;
+        $test_questions = TestQuestion::where('test_id', $request->test_id)
+            ->where('test_take_id', $request->test_take_id)
+            ->get();
+
+        $total_marks = 0;
+
         foreach ($test_questions as $question) {
             $qstn = Question::find($question->question_id);
             if ($qstn) {
-                if ($qstn->answer == $question->result) {
-                    $correct_answers++;
+                if ($oldTest->negative_marking) {
+                    // Negative marking is enabled
+                    if ($qstn->answer == $question->result) {
+                        $total_marks += 2; // Correct answer: +2 marks
+                    } elseif (!is_null($question->result)) {
+                        $total_marks -= 1; // Wrong answer: -1 mark (only if attempted)
+                    }
+                    // Not attempted: 0 marks (no change)
+                } else {
+                    // Normal scoring (no negative marking)
+                    if ($qstn->answer == $question->result) {
+                        $total_marks += 1; // Correct answer: +1 mark
+                    }
+                    // Wrong or not attempted: 0 marks (no change)
                 }
             }
         }
-        $test->marks = $correct_answers;
+
+        $test->marks = $total_marks;
         $test->is_completed = 1;
         $test->save();
 

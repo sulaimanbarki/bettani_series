@@ -30,7 +30,8 @@
                     <div class="col-xl-12 col-lg-12 col-sm-12 pt-4 mx-auto">
                         <div class="card l-bg-blue-dark ">
                             <div class="card-statistic-3 p-4">
-                                <div class="card-icon card-icon-large"><i class="fas fa-users"></i>
+                                <div class="card-icon card-icon-large">
+                                    {{-- <i class="fas fa-users"></i> --}}
                                 </div>
                                 <div class="row">
                                     <div class="col">
@@ -143,7 +144,7 @@
                                                     <th>
                                                         {{ $test->marks }} 
                                                         {{-- show percentage of obtained marks upto 1 decimal place --}}
-                                                        ({{ number_format($test->marks / $total_questions * 100, 1) }}%)
+                                                        {{-- ({{ number_format($test->marks / $total_questions * 100, 1) }}%) --}}
                                                     </th>
                                                 </tr>
 
