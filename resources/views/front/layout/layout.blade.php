@@ -96,6 +96,8 @@
     <!--<script src="{{ asset('UI/assets/vendor/bootstrap5/js/bootstrap.bundle.min.js') }}"></script> -->
     <!-- adstera ad-->
     <!---->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6917186989360989"
+     crossorigin="anonymous"></script>
 </head>
 
 <body>
