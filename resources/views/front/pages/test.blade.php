@@ -32,10 +32,10 @@
                             <thead>
                                 <tr>
                                     <th style="width: 30%">Test Name</th>
-                                    <th>Test Date</th>
+                                    {{-- <th>Test Date</th> --}}
                                     {{-- <th>Test Time</th> --}}
-                                    <th class="announced-col">Announced</th>
-                                    <th>Last</th>
+                                    {{-- <th class="announced-col">Announced</th> --}}
+                                    {{-- <th>Last</th> --}}
                                     {{-- <th>Test Fee</th> --}}
                                     <th>Apply</th>
                                 </tr>
@@ -44,10 +44,10 @@
                                 @foreach ($upcoming as $test)
                                     <tr>
                                         <td>{{ $test->title }}</td>
-                                        <td>{{ date('d/m/Y h:i A', strtotime($test->date)) }}</td>
+                                        {{-- <td>{{ date('d/m/Y h:i A', strtotime($test->date)) }}</td>
                                         <td class="announced-col">{{ date('d/m/Y', strtotime($test->announce_date)) }}
                                         </td>
-                                        <td>{{ date('d/m/Y', strtotime($test->last_date)) }}</td>
+                                        <td>{{ date('d/m/Y', strtotime($test->last_date)) }}</td> --}}
                                         {{-- old backup --}}
                                         {{-- <td>
                                         @if (date('Y-m-d', strtotime($test->date)) == date('Y-m-d'))
