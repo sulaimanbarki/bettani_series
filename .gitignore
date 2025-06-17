@@ -28,3 +28,4 @@ Homestead.json
 /.vagrant
 .phpunit.result.cache
 bootstrap/cache/config.php
+Archive.zip
