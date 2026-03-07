@@ -8,7 +8,7 @@ use Brackets\Media\HasMedia\ProcessMediaTrait;
 use Brackets\Media\HasMedia\AutoProcessMediaTrait;
 use Brackets\Media\HasMedia\HasMediaCollectionsTrait;
 use Spatie\MediaLibrary\HasMedia;
-use Brackets\Media\HasMedia\HasMediaThumbsTrait;
+use App\Traits\NonOptimizedMediaThumbs;
 
 class Question extends Model  implements HasMedia
 {
@@ -16,7 +16,7 @@ class Question extends Model  implements HasMedia
     use ProcessMediaTrait;
     use AutoProcessMediaTrait;
     use HasMediaCollectionsTrait;
-    use HasMediaThumbsTrait;
+    use NonOptimizedMediaThumbs;
     use SoftDeletes;
     protected $fillable = [
         'description',
@@ -84,10 +84,12 @@ class Question extends Model  implements HasMedia
         $this->addMediaConversion('300x452')
             ->width(300)
             ->height(452)
+            ->nonOptimized()
             ->performOnCollections('question');
         $this->addMediaConversion('300x452')
             ->width(300)
             ->height(452)
+            ->nonOptimized()
             ->performOnCollections('answer_attachment');
     }
 

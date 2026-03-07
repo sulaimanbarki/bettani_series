@@ -48,7 +48,7 @@ class PagesController extends Controller
 
         $categories = Category::where('enabled', 1)->limit(5)->get();
         $bestsellings = Book::where('enabled', 1)->orderBy('orderNo')->limit(5)->get();
-        $books = Book::where('enabled', 1)->orderBy('orderNo')->limit(12)->get();
+        $books = Book::where('enabled', 1)->orderBy('orderNo')->get();
         $authors = Author::where('enabled', 1)->with('books')->inRandomOrder()->limit(20)->get();
 
         $leftslides = Slide::where('type', 0)->get();

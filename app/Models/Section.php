@@ -8,7 +8,7 @@ use Brackets\Media\HasMedia\ProcessMediaTrait;
 use Brackets\Media\HasMedia\AutoProcessMediaTrait;
 use Brackets\Media\HasMedia\HasMediaCollectionsTrait;
 use Spatie\MediaLibrary\HasMedia;
-use Brackets\Media\HasMedia\HasMediaThumbsTrait;
+use App\Traits\NonOptimizedMediaThumbs;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 class Section extends Model implements HasMedia
@@ -17,7 +17,7 @@ class Section extends Model implements HasMedia
     use ProcessMediaTrait;
     use AutoProcessMediaTrait;
     use HasMediaCollectionsTrait;
-    use HasMediaThumbsTrait;
+    use NonOptimizedMediaThumbs;
     use Sluggable;
     protected $fillable = [
         'title',
@@ -81,6 +81,7 @@ class Section extends Model implements HasMedia
         $this->addMediaConversion('120x180')
             ->width(120)
             ->height(180)
+            ->nonOptimized()
             ->performOnCollections('sections');
     }
 

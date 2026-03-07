@@ -7,7 +7,7 @@ use Brackets\Media\HasMedia\ProcessMediaTrait;
 use Brackets\Media\HasMedia\AutoProcessMediaTrait;
 use Brackets\Media\HasMedia\HasMediaCollectionsTrait;
 use Spatie\MediaLibrary\HasMedia;
-use Brackets\Media\HasMedia\HasMediaThumbsTrait;
+use App\Traits\NonOptimizedMediaThumbs;
 use Cviebrock\EloquentSluggable\Sluggable;
 
 class Setting extends Model implements HasMedia
@@ -16,7 +16,7 @@ class Setting extends Model implements HasMedia
     use ProcessMediaTrait;
     use AutoProcessMediaTrait;
     use HasMediaCollectionsTrait;
-    use HasMediaThumbsTrait;
+    use NonOptimizedMediaThumbs;
 
 
     protected $fillable = [
@@ -68,17 +68,20 @@ class Setting extends Model implements HasMedia
         $this->addMediaConversion('header')
             ->width(200)
             ->height(50)
+            ->nonOptimized()
             ->performOnCollections('settings');
             
         $this->addMediaConversion('original')
             ->keepOriginalImageFormat()
             ->width(200)
             ->height(50)
+            ->nonOptimized()
             ->performOnCollections('settings');
 
         $this->addMediaConversion('footer')
             ->width(200)
             ->height(50)
+            ->nonOptimized()
             ->performOnCollections('settings');
     }
 }

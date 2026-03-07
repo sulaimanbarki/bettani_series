@@ -7,7 +7,7 @@ use Brackets\Media\HasMedia\ProcessMediaTrait;
 use Brackets\Media\HasMedia\AutoProcessMediaTrait;
 use Brackets\Media\HasMedia\HasMediaCollectionsTrait;
 use Spatie\MediaLibrary\HasMedia;
-use Brackets\Media\HasMedia\HasMediaThumbsTrait;
+use App\Traits\NonOptimizedMediaThumbs;
 
 
 
@@ -17,7 +17,7 @@ class Slide extends Model implements HasMedia
     use ProcessMediaTrait;
     use AutoProcessMediaTrait;
     use HasMediaCollectionsTrait;
-    use HasMediaThumbsTrait;
+    use NonOptimizedMediaThumbs;
 
     protected $fillable = [
         'description',
@@ -56,6 +56,7 @@ class Slide extends Model implements HasMedia
         $this->addMediaConversion('800x420')
             ->width(800)
             ->height(420)
+            ->nonOptimized()
             ->performOnCollections('slide');
     }
 }

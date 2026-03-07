@@ -8,7 +8,7 @@ use Brackets\Media\HasMedia\ProcessMediaTrait;
 use Brackets\Media\HasMedia\AutoProcessMediaTrait;
 use Brackets\Media\HasMedia\HasMediaCollectionsTrait;
 use Spatie\MediaLibrary\HasMedia;
-use Brackets\Media\HasMedia\HasMediaThumbsTrait;
+use App\Traits\NonOptimizedMediaThumbs;
 use Cviebrock\EloquentSluggable\Sluggable;
 use App\Models\OrderItem;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +20,7 @@ class Book extends Model  implements HasMedia
     use ProcessMediaTrait;
     use AutoProcessMediaTrait;
     use HasMediaCollectionsTrait;
-    use HasMediaThumbsTrait;
+    use NonOptimizedMediaThumbs;
     use Sluggable;
     protected $fillable = [
         'title',
@@ -139,11 +139,13 @@ class Book extends Model  implements HasMedia
         $this->addMediaConversion('150x226')
             ->width(150)
             ->height(226)
+            ->nonOptimized()
             ->performOnCollections('books');
 
         $this->addMediaConversion('300x452')
             ->width(300)
             ->height(452)
+            ->nonOptimized()
             ->performOnCollections('books');
     }
 
